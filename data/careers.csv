@@ -1,5 +1,5 @@
 career,degree,branch,skills,description
-Data Scientist,B.Tech,CSE,Python|ML|SQL,Analyzing data, building ML models, using Python, statistics
-Web Developer,B.Tech,IT,HTML|CSS|JS,Building websites, front-end and back-end coding, JavaScript, HTML
-UI/UX Designer,B.Des,Design,Figma|Creativity,Designing interfaces, user experience, Figma, creativity
-Cloud Engineer,B.Tech,CSE,AWS|DevOps|Linux,Cloud computing, AWS, deployment, automation
+Data Scientist,B.Tech,CSE,Python|ML|SQL,"Analyzing data, building ML models, using Python, statistics"
+Web Developer,B.Tech,IT,HTML|CSS|JS,"Building websites, front-end and back-end coding, JavaScript, HTML"
+UI/UX Designer,B.Des,Design,Figma|Creativity,"Designing interfaces, user experience, Figma, creativity"
+Cloud Engineer,B.Tech,CSE,AWS|DevOps|Linux,"Cloud computing, AWS, deployment, automation"
