@@ -1,0 +1,42 @@
+{
+  "Data Scientist": [
+    {
+      "title": "Python for Data Science (Coursera)",
+      "url": "https://coursera.org/learn/python-data"
+    },
+    {
+      "title": "Machine Learning A-Z",
+      "url": "https://udemy.com/course/machinelearning"
+    }
+  ],
+  "Web Developer": [
+    {
+      "title": "Frontend Development (freeCodeCamp)",
+      "url": "https://www.freecodecamp.org/learn"
+    },
+    {
+      "title": "Full Stack Web Dev",
+      "url": "https://www.coursera.org/specializations/full-stack"
+    }
+  ],
+  "UI/UX Designer": [
+    {
+      "title": "UI/UX Design (Google)",
+      "url": "https://coursera.org/professional-certificates/google-ux-design"
+    },
+    {
+      "title": "Figma Masterclass",
+      "url": "https://udemy.com/course/figma-ux-ui-design"
+    }
+  ],
+  "Cloud Engineer": [
+    {
+      "title": "AWS Cloud Practitioner",
+      "url": "https://coursera.org/learn/aws-cloud-practitioner-essentials"
+    },
+    {
+      "title": "DevOps on AWS",
+      "url": "https://udemy.com/course/aws-devops"
+    }
+  ]
+}
