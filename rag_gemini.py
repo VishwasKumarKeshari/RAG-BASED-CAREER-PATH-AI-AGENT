@@ -66,8 +66,15 @@ class CareerRAG:
             self.model_name = None
 
         if not self.model_name:
-            # Safe default if discovery failed
-            self.model_name = 'models/text-bison-001'
+            # Try a common Gemini alias available in most accounts
+            self.model_name = 'models/gemini-flash-latest'
+
+        # Instantiate a GenerativeModel wrapper for generation calls
+        try:
+            self.model = genai.GenerativeModel(self.model_name)
+        except Exception:
+            # If instantiation fails, leave model as None and rely on lower-level calls
+            self.model = None
         
         # Use sentence-transformers for embeddings (no API calls needed)
         self.embeddings_model = SentenceTransformer('all-MiniLM-L6-v2')
@@ -155,27 +162,29 @@ Please provide:
 Be encouraging, specific, and actionable."""
         
         try:
-            # Call the Generative API using a model name selected above.
-            # Use generate_text which is more widely supported across versions.
-            try:
-                resp = genai.generate_text(model=self.model_name, prompt=prompt)
-            except Exception as e:
-                # If generate_text is not available, try a generic generate() call
-                try:
-                    resp = genai.generate(model=self.model_name, prompt=prompt)
-                except Exception as e2:
-                    raise
-
-            # Robustly extract text from response
-            recommendation = None
-            if resp is None:
-                recommendation = ''
-            elif isinstance(resp, dict):
-                # Common keys: 'content', 'text', or nested
-                recommendation = resp.get('content') or resp.get('text') or str(resp)
+            # Prefer the GenerativeModel wrapper if available
+            if getattr(self, 'model', None) is not None:
+                resp = self.model.generate_content(prompt)
+                # The SDK returns an object with .text attribute per docs
+                recommendation = getattr(resp, 'text', None) or str(resp)
             else:
-                # Try common attributes
-                recommendation = getattr(resp, 'text', None) or getattr(resp, 'content', None) or str(resp)
+                # Fall back to lower-level API if wrapper isn't available
+                try:
+                    resp = genai.list_models()
+                except Exception:
+                    resp = None
+                # Attempt a direct RPC via model name
+                try:
+                    # Some SDK versions expose a 'generate_content' helper on the module
+                    fn = getattr(genai, 'generate_content', None)
+                    if fn:
+                        resp = fn(model=self.model_name, prompt=prompt)
+                        recommendation = getattr(resp, 'text', None) or str(resp)
+                    else:
+                        # As last resort, raise so caller sees the error
+                        raise RuntimeError('No supported generate method available in google.generativeai SDK')
+                except Exception as e:
+                    raise
             
             # Use highest similarity score as confidence
             confidence = similar_careers[0][1] if similar_careers else 0.5
