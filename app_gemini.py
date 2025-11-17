@@ -1,5 +1,4 @@
 import streamlit as st
-import os
 from rag_gemini import CareerRAG
 from career_knowledge_base import get_career_documents
 
@@ -17,9 +16,7 @@ if 'rag_system' not in st.session_state:
 def initialize_rag():
     """Initialize RAG pipeline with Gemini"""
     try:
-        api_key = os.getenv("GEMINI_API_KEY")
-        if not api_key:
-            return None, "GEMINI_API_KEY not found"
+        api_key = "AIzaSyA9lXUSXfzs5kv9NOZ-p-r4YHWzeoXX-z4"
         
         rag = CareerRAG(api_key=api_key)
         docs = get_career_documents()
@@ -33,7 +30,6 @@ rag_system, error = initialize_rag()
 
 if error or rag_system is None:
     st.error(f"❌ Failed to initialize RAG: {error or 'Unknown error'}")
-    st.info("ℹ️ Make sure GEMINI_API_KEY environment variable is set")
 else:
     st.success("✅ RAG System Ready")
     
