@@ -18,9 +18,8 @@ def initialize_rag():
     try:
         api_key = "AIzaSyA9lXUSXfzs5kv9NOZ-p-r4YHWzeoXX-z4"
         
+        # Instantiate RAG but defer heavy work (embeddings) until first request
         rag = CareerRAG(api_key=api_key)
-        docs = get_career_documents()
-        rag.create_knowledge_base(docs)
         return rag, None
     except Exception as e:
         return None, str(e)
@@ -63,6 +62,12 @@ else:
                 
                 with st.spinner("🤖 Gemini is analyzing your profile..."):
                     try:
+                        # Ensure knowledge base initialized (generate embeddings) before recommendation
+                        if rag_system.career_embeddings is None:
+                            with st.spinner("📚 Building knowledge base (this may take a few seconds)..."):
+                                docs = get_career_documents()
+                                rag_system.create_knowledge_base(docs)
+
                         recommendation, confidence = rag_system.recommend_career(user_profile)
                         
                         col1, col2 = st.columns([3, 1])
@@ -100,6 +105,12 @@ else:
             if user_description:
                 with st.spinner("🤖 Gemini is analyzing your profile..."):
                     try:
+                        # Ensure knowledge base initialized (generate embeddings) before recommendation
+                        if rag_system.career_embeddings is None:
+                            with st.spinner("📚 Building knowledge base (this may take a few seconds)..."):
+                                docs = get_career_documents()
+                                rag_system.create_knowledge_base(docs)
+
                         recommendation, confidence = rag_system.recommend_career(user_description)
                         
                         col1, col2 = st.columns([3, 1])
