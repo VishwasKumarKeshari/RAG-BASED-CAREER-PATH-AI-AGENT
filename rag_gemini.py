@@ -132,7 +132,7 @@ def demo_rag():
     from career_knowledge_base import get_career_documents
     
     print("🚀 Initializing Gemini RAG Pipeline...")
-    rag = CareerRAG()
+    rag = CareerRAG(api_key="AIzaSyA9lXUSXfzs5kv9NOZ-p-r4YHWzeoXX-z4")
     
     print("📚 Loading career knowledge base...")
     docs = get_career_documents()
