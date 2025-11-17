@@ -6,13 +6,9 @@ Simpler, faster, and avoids LangChain import issues.
 import os
 import json
 from typing import List, Tuple
-from dotenv import load_dotenv
 import google.generativeai as genai
 from sentence_transformers import SentenceTransformer
 import numpy as np
-
-# Load environment variables from .env file
-load_dotenv()
 
 
 class CareerRAG:
