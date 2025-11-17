@@ -24,8 +24,7 @@ Thumbs.db
 # Python cache
 .pytest_cache/
 
-# Models and other large artifacts (do NOT push binaries)
-models/
+
 
 # Jupyter
 .ipynb_checkpoints/
