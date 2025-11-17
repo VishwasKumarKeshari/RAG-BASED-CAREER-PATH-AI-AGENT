@@ -26,7 +26,48 @@ class CareerRAG:
             raise ValueError("GEMINI_API_KEY not found. Set environment variable or pass api_key.")
         
         genai.configure(api_key=self.api_key)
-        self.model = genai.GenerativeModel('gemini-pro')
+        # Choose a model name at runtime. Gemini model names / availability vary by account
+        # We'll attempt to discover available models and pick a Gemini variant if present,
+        # otherwise fall back to a broadly-available text model (text-bison).
+        self.model_name = None
+        try:
+            # list_models may return a list-like object with model info
+            available = []
+            try:
+                models_resp = genai.list_models()
+                # Try to extract names conservatively
+                if isinstance(models_resp, dict) and 'models' in models_resp:
+                    available = [m.get('name', '') for m in models_resp.get('models', []) if isinstance(m, dict)]
+                elif isinstance(models_resp, (list, tuple)):
+                    # elements may be dicts or strings
+                    for m in models_resp:
+                        if isinstance(m, dict):
+                            name = m.get('name') or m.get('model') or ''
+                            available.append(name)
+                        else:
+                            available.append(str(m))
+            except Exception:
+                # If list_models is not supported or fails, ignore and use fallback
+                available = []
+
+            candidates = [
+                'models/gemini-pro', 'models/gemini-1.0', 'models/gemini-1.5',
+                'gemini-pro', 'gemini-1.0', 'gemini-1.5',
+                'models/text-bison-001', 'text-bison-001', 'text-bison'
+            ]
+            for c in candidates:
+                for a in available:
+                    if c in a:
+                        self.model_name = a
+                        break
+                if self.model_name:
+                    break
+        except Exception:
+            self.model_name = None
+
+        if not self.model_name:
+            # Safe default if discovery failed
+            self.model_name = 'models/text-bison-001'
         
         # Use sentence-transformers for embeddings (no API calls needed)
         self.embeddings_model = SentenceTransformer('all-MiniLM-L6-v2')
@@ -114,9 +155,27 @@ Please provide:
 Be encouraging, specific, and actionable."""
         
         try:
-            # Call Gemini API
-            response = self.model.generate_content(prompt)
-            recommendation = response.text
+            # Call the Generative API using a model name selected above.
+            # Use generate_text which is more widely supported across versions.
+            try:
+                resp = genai.generate_text(model=self.model_name, prompt=prompt)
+            except Exception as e:
+                # If generate_text is not available, try a generic generate() call
+                try:
+                    resp = genai.generate(model=self.model_name, prompt=prompt)
+                except Exception as e2:
+                    raise
+
+            # Robustly extract text from response
+            recommendation = None
+            if resp is None:
+                recommendation = ''
+            elif isinstance(resp, dict):
+                # Common keys: 'content', 'text', or nested
+                recommendation = resp.get('content') or resp.get('text') or str(resp)
+            else:
+                # Try common attributes
+                recommendation = getattr(resp, 'text', None) or getattr(resp, 'content', None) or str(resp)
             
             # Use highest similarity score as confidence
             confidence = similar_careers[0][1] if similar_careers else 0.5
