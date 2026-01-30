@@ -3,7 +3,7 @@ from rag_gemini import CareerRAG
 from dotenv import load_dotenv
 import os
 
-load_dotenv()
+load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), '.env'))
 
 st.set_page_config(page_title="Career Compass - Gemini RAG", layout="wide")
 st.title("🎯 Career Compass — AI-Powered Career Recommendations")
