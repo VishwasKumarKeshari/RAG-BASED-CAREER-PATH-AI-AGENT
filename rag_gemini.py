@@ -227,7 +227,7 @@ class CareerRAG:
         # Step 3: Initialize LLM with API key (step-wise integration)
         print("🔑 Step 3: Initializing LLM for final generation...")
         client = Groq(api_key=api_key)
-        model_name = 'llama3-8b-8192'
+        model_name = 'llama-3.1-70b-versatile'
         # Model is specified in generate_content call
 
         # Step 4: LLM gets context + prompt (what user needs to fetch)
