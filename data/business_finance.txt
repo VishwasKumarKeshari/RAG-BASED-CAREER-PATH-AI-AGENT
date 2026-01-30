@@ -1,0 +1,97 @@
+Financial Analyst Career Path:
+Analyzes financial data to help businesses make investment decisions.
+Required Skills: Financial modeling, Excel, Financial statements analysis, Valuation, Risk assessment, Bloomberg terminal
+Education: Bachelor's in Finance, Accounting, Economics, or related field; CFA certification preferred
+Experience Level: Entry-level (0-2 years), Mid-level (2-5 years), Senior (5+ years)
+Salary Range: ₹4-8 LPA (Entry), ₹8-15 LPA (Mid), ₹15-30 LPA (Senior)
+Growth Path: Senior Financial Analyst → Finance Manager → Director of Finance → CFO
+
+---
+
+Investment Banker Career Path:
+Advises companies and governments on financial transactions and capital raising.
+Required Skills: Financial modeling, Deal structuring, Pitch book creation, Due diligence, Regulatory compliance, Client relationship management
+Education: Bachelor's in Finance, Economics, or Business; MBA preferred
+Experience Level: Entry-level (0-2 years), Mid-level (2-5 years), Senior (5+ years)
+Salary Range: ₹8-15 LPA (Entry), ₹15-30 LPA (Mid), ₹30-60 LPA (Senior)
+Growth Path: Associate → Vice President → Director → Managing Director
+
+---
+
+Business Analyst Career Path:
+Analyzes business needs and recommends solutions to improve processes and systems.
+Required Skills: Requirements gathering, Data analysis, Process modeling, SQL, Business intelligence tools, Stakeholder management
+Education: Bachelor's in Business, Computer Science, or related field; Certifications like CBAP preferred
+Experience Level: Entry-level (0-2 years), Mid-level (2-5 years), Senior (5+ years)
+Salary Range: ₹4-8 LPA (Entry), ₹8-15 LPA (Mid), ₹15-28 LPA (Senior)
+Growth Path: Senior Business Analyst → Business Analysis Manager → Director of Business Analysis
+
+---
+
+Management Consultant Career Path:
+Advises organizations on strategy, operations, and organizational changes.
+Required Skills: Strategic thinking, Problem solving, Data analysis, Presentation skills, Industry knowledge, Change management
+Education: Bachelor's degree; MBA from top-tier school preferred
+Experience Level: Entry-level (0-2 years), Mid-level (2-5 years), Senior (5+ years)
+Salary Range: ₹8-15 LPA (Entry), ₹15-30 LPA (Mid), ₹30-60 LPA (Senior)
+Growth Path: Consultant → Senior Consultant → Manager → Partner
+
+---
+
+Chartered Accountant Career Path:
+Provides financial auditing, tax advice, and business advisory services.
+Required Skills: Accounting principles, Tax laws, Auditing standards, Financial reporting, Risk assessment, Regulatory compliance
+Education: Bachelor's in Commerce/Accountancy; CA certification required
+Experience Level: Entry-level (0-2 years), Mid-level (2-5 years), Senior (5+ years)
+Salary Range: ₹4-8 LPA (Entry), ₹8-15 LPA (Mid), ₹15-35 LPA (Senior)
+Growth Path: Senior Auditor → Audit Manager → Partner → Managing Partner
+
+---
+
+Risk Analyst Career Path:
+Identifies and analyzes potential risks that could affect business operations.
+Required Skills: Risk modeling, Statistical analysis, Regulatory compliance, Financial analysis, Risk mitigation strategies
+Education: Bachelor's in Finance, Mathematics, Statistics, or related field; FRM/PRM certification preferred
+Experience Level: Entry-level (0-2 years), Mid-level (2-5 years), Senior (5+ years)
+Salary Range: ₹5-10 LPA (Entry), ₹10-18 LPA (Mid), ₹18-35 LPA (Senior)
+Growth Path: Senior Risk Analyst → Risk Manager → Chief Risk Officer
+
+---
+
+Financial Planner Career Path:
+Helps individuals and families manage their finances and plan for the future.
+Required Skills: Financial planning, Investment strategies, Tax planning, Retirement planning, Insurance knowledge, Client advisory
+Education: Bachelor's in Finance or Business; CFP certification required
+Experience Level: Entry-level (0-2 years), Mid-level (2-5 years), Senior (5+ years)
+Salary Range: ₹3-6 LPA (Entry), ₹6-12 LPA (Mid), ₹12-25 LPA (Senior)
+Growth Path: Senior Financial Planner → Financial Planning Manager → Director of Financial Planning
+
+---
+
+Corporate Treasurer Career Path:
+Manages company's financial assets, liabilities, and risk management.
+Required Skills: Treasury management, Cash flow management, Risk management, Financial instruments, Regulatory compliance, Strategic planning
+Education: Bachelor's in Finance or Business; MBA preferred
+Experience Level: Mid-level (2-5 years), Senior (5+ years)
+Salary Range: ₹15-25 LPA (Mid), ₹25-50 LPA (Senior)
+Growth Path: Assistant Treasurer → Treasurer → Vice President of Treasury → CFO
+
+---
+
+Actuarial Analyst Career Path:
+Uses mathematics, statistics, and financial theory to assess financial consequences of risk.
+Required Skills: Statistical modeling, Probability theory, Financial mathematics, Programming (R/Python), Risk assessment, Data analysis
+Education: Bachelor's in Mathematics, Statistics, Actuarial Science; FSA/ACAS certifications
+Experience Level: Entry-level (0-2 years), Mid-level (2-5 years), Senior (5+ years)
+Salary Range: ₹6-12 LPA (Entry), ₹12-25 LPA (Mid), ₹25-45 LPA (Senior)
+Growth Path: Actuarial Analyst → Senior Actuarial Analyst → Actuarial Manager → Chief Actuary
+
+---
+
+Venture Capitalist Career Path:
+Invests in startup companies with high growth potential.
+Required Skills: Investment analysis, Due diligence, Deal structuring, Portfolio management, Industry knowledge, Networking
+Education: Bachelor's in Finance, Business, or related field; MBA preferred
+Experience Level: Mid-level (2-5 years), Senior (5+ years)
+Salary Range: ₹15-30 LPA (Mid), ₹30-60 LPA (Senior) + carried interest
+Growth Path: Associate → Principal → Partner → Managing Partner

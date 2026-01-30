@@ -1,0 +1,97 @@
+University Professor Career Path:
+Teaches and conducts research at the university level in their field of expertise.
+Required Skills: Subject expertise, Research methodology, Teaching, Academic writing, Grant writing, Student mentoring
+Education: PhD in relevant field; Post-doctoral experience preferred
+Experience Level: Assistant Professor (0-5 years), Associate Professor (5-10 years), Professor (10+ years)
+Salary Range: ₹6-12 LPA (Assistant), ₹12-20 LPA (Associate), ₹20-40 LPA (Professor)
+Growth Path: Assistant Professor → Associate Professor → Professor → Department Chair → Dean
+
+---
+
+School Teacher Career Path:
+Educates students at primary, secondary, or high school levels.
+Required Skills: Subject knowledge, Classroom management, Lesson planning, Student assessment, Communication, Patience
+Education: Bachelor's degree in Education (B.Ed) or relevant subject; Teaching certification
+Experience Level: Trainee Teacher (0-1 year), Teacher (1-5 years), Senior Teacher (5+ years)
+Salary Range: ₹2-4 LPA (Trainee), ₹4-8 LPA (Teacher), ₹8-15 LPA (Senior)
+Growth Path: Teacher → Senior Teacher → Head Teacher → Principal
+
+---
+
+Research Scientist Career Path:
+Conducts scientific research to advance knowledge in their field.
+Required Skills: Research methodology, Data analysis, Laboratory techniques, Scientific writing, Grant writing, Peer review
+Education: PhD in relevant scientific field
+Experience Level: Post-doctoral Researcher (0-3 years), Research Scientist (3-7 years), Senior Scientist (7+ years)
+Salary Range: ₹6-12 LPA (Post-doc), ₹12-20 LPA (Scientist), ₹20-35 LPA (Senior)
+Growth Path: Post-doctoral Researcher → Research Scientist → Senior Scientist → Principal Scientist → Director of Research
+
+---
+
+Data Scientist (Research) Career Path:
+Applies statistical and computational methods to extract insights from research data.
+Required Skills: Statistics, Machine learning, Programming (Python/R), Data visualization, Research design, Academic publishing
+Education: PhD in relevant field or Master's with research experience
+Experience Level: Research Associate (0-3 years), Research Data Scientist (3-7 years), Senior Research Scientist (7+ years)
+Salary Range: ₹8-15 LPA (Associate), ₹15-25 LPA (Data Scientist), ₹25-40 LPA (Senior)
+Growth Path: Research Associate → Research Data Scientist → Senior Research Scientist → Research Director
+
+---
+
+Librarian Career Path:
+Manages library resources and helps users access information and research materials.
+Required Skills: Information organization, Research assistance, Database management, Digital literacy, User service, Collection development
+Education: Master's in Library Science (MLIS) or equivalent
+Experience Level: Junior Librarian (0-2 years), Librarian (2-5 years), Senior Librarian (5+ years)
+Salary Range: ₹3-6 LPA (Junior), ₹6-10 LPA (Librarian), ₹10-18 LPA (Senior)
+Growth Path: Junior Librarian → Librarian → Senior Librarian → Library Director
+
+---
+
+Educational Consultant Career Path:
+Advises schools, educational institutions, and organizations on curriculum development and educational strategies.
+Required Skills: Curriculum design, Educational assessment, Policy analysis, Training delivery, Stakeholder management, Research
+Education: Master's in Education, Educational Leadership, or related field
+Experience Level: Consultant (0-3 years), Senior Consultant (3-7 years), Principal Consultant (7+ years)
+Salary Range: ₹6-12 LPA (Consultant), ₹12-20 LPA (Senior), ₹20-35 LPA (Principal)
+Growth Path: Educational Consultant → Senior Consultant → Principal Consultant → Director of Educational Services
+
+---
+
+Curriculum Developer Career Path:
+Designs educational programs, courses, and learning materials for schools and organizations.
+Required Skills: Instructional design, Learning theory, Content development, Assessment design, Technology integration, Project management
+Education: Master's in Education, Instructional Design, or related field
+Experience Level: Junior Developer (0-2 years), Curriculum Developer (2-5 years), Senior Developer (5+ years)
+Salary Range: ₹4-8 LPA (Junior), ₹8-15 LPA (Developer), ₹15-25 LPA (Senior)
+Growth Path: Junior Developer → Curriculum Developer → Senior Developer → Director of Curriculum
+
+---
+
+Academic Advisor Career Path:
+Guides students in academic planning, course selection, and career development.
+Required Skills: Student counseling, Academic planning, Career guidance, Communication, Problem solving, Record keeping
+Education: Master's in Education, Counseling, or related field
+Experience Level: Academic Advisor (0-3 years), Senior Advisor (3-7 years), Academic Advising Coordinator (7+ years)
+Salary Range: ₹3-6 LPA (Advisor), ₹6-10 LPA (Senior), ₹10-18 LPA (Coordinator)
+Growth Path: Academic Advisor → Senior Advisor → Academic Advising Coordinator → Director of Academic Advising
+
+---
+
+Educational Researcher Career Path:
+Conducts research on teaching methods, learning processes, and educational outcomes.
+Required Skills: Research methodology, Statistical analysis, Educational theory, Academic writing, Grant writing, Data collection
+Education: PhD in Education, Educational Psychology, or related field
+Experience Level: Research Assistant (0-2 years), Educational Researcher (2-5 years), Senior Researcher (5+ years)
+Salary Range: ₹5-10 LPA (Assistant), ₹10-18 LPA (Researcher), ₹18-30 LPA (Senior)
+Growth Path: Research Assistant → Educational Researcher → Senior Researcher → Research Director
+
+---
+
+Special Education Teacher Career Path:
+Teaches students with disabilities and special learning needs.
+Required Skills: Special education techniques, Individualized education plans, Behavior management, Adaptive teaching methods, Collaboration, Patience
+Education: Bachelor's in Special Education or regular education with special education certification
+Experience Level: Special Education Teacher (0-3 years), Senior Special Educator (3-7 years), Special Education Coordinator (7+ years)
+Salary Range: ₹3-6 LPA (Teacher), ₹6-12 LPA (Senior), ₹12-20 LPA (Coordinator)
+Growth Path: Special Education Teacher → Senior Special Educator → Special Education Coordinator → Director of Special Education

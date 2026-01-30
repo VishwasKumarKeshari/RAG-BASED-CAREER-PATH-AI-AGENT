@@ -1,6 +1,5 @@
 import streamlit as st
 from rag_gemini import CareerRAG
-from career_knowledge_base import get_career_documents
 
 st.set_page_config(page_title="Career Compass - Gemini RAG", layout="wide")
 st.title("🎯 Career Compass — AI-Powered Career Recommendations")
@@ -16,10 +15,18 @@ if 'rag_system' not in st.session_state:
 def initialize_rag():
     """Initialize RAG pipeline with Gemini"""
     try:
-        api_key = "AIzaSyA9lXUSXfzs5kv9NOZ-p-r4YHWzeoXX-z4"
-        
-        # Instantiate RAG but defer heavy work (embeddings) until first request
-        rag = CareerRAG(api_key=api_key)
+        # Instantiate RAG system (no API key needed for retrieval)
+        rag = CareerRAG()
+
+        # Try to load existing vector store first
+        try:
+            rag.load_vector_store()
+            print("📂 Loaded existing vector store with 100 career paths")
+        except Exception:
+            print("📚 Creating new vector store from 100 career paths...")
+            rag.create_vector_store()
+            rag.save_vector_store()
+
         return rag, None
     except Exception as e:
         return None, str(e)
@@ -62,13 +69,8 @@ else:
                 
                 with st.spinner("🤖 Gemini is analyzing your profile..."):
                     try:
-                        # Ensure knowledge base initialized (generate embeddings) before recommendation
-                        if rag_system.career_embeddings is None:
-                            with st.spinner("📚 Building knowledge base (this may take a few seconds)..."):
-                                docs = get_career_documents()
-                                rag_system.create_knowledge_base(docs)
-
-                        recommendation, confidence = rag_system.recommend_career(user_profile)
+                        api_key = st.secrets["GEMINI_API_KEY"]
+                        recommendation, confidence = rag_system.recommend_career(user_profile, api_key=api_key)
                         
                         col1, col2 = st.columns([3, 1])
                         with col1:
@@ -82,10 +84,10 @@ else:
                         st.markdown("---")
                         st.markdown("### 🔗 Related Career Paths")
                         
-                        similar = rag_system.retrieve_similar_careers(user_profile, top_k=3)
-                        for i, (career_info, score) in enumerate(similar, 1):
+                        similar = rag_system.retrieve_similar_documents(user_profile, top_k=3)
+                        for i, (doc, score) in enumerate(similar, 1):
                             with st.expander(f"Career {i} (Match: {score:.0%})"):
-                                st.write(career_info)
+                                st.write(doc.page_content)
                     
                     except Exception as e:
                         st.error(f"Error: {e}")
@@ -105,13 +107,8 @@ else:
             if user_description:
                 with st.spinner("🤖 Gemini is analyzing your profile..."):
                     try:
-                        # Ensure knowledge base initialized (generate embeddings) before recommendation
-                        if rag_system.career_embeddings is None:
-                            with st.spinner("📚 Building knowledge base (this may take a few seconds)..."):
-                                docs = get_career_documents()
-                                rag_system.create_knowledge_base(docs)
-
-                        recommendation, confidence = rag_system.recommend_career(user_description)
+                        api_key = st.secrets["GEMINI_API_KEY"]
+                        recommendation, confidence = rag_system.recommend_career(user_description, api_key=api_key)
                         
                         col1, col2 = st.columns([3, 1])
                         with col1:
@@ -125,10 +122,10 @@ else:
                         st.markdown("---")
                         st.markdown("### 🎯 Matching Opportunities")
                         
-                        similar = rag_system.retrieve_similar_careers(user_description, top_k=3)
-                        for i, (career_info, score) in enumerate(similar, 1):
+                        similar = rag_system.retrieve_similar_documents(user_description, top_k=3)
+                        for i, (doc, score) in enumerate(similar, 1):
                             with st.expander(f"Opportunity {i} (Match: {score:.0%})"):
-                                st.write(career_info)
+                                st.write(doc.page_content)
                     
                     except Exception as e:
                         st.error(f"Error: {e}")
@@ -139,9 +136,11 @@ st.markdown("---")
 st.markdown("""
 ### ℹ️ About This RAG System
 This application uses **Retrieval-Augmented Generation (RAG)** with Google Gemini AI:
-- 🔍 **Retrieval**: Searches knowledge base for relevant careers
-- 🧠 **Augmentation**: Provides context to AI model
-- ✨ **Generation**: Creates personalized recommendations
 
-**Technology Stack**: Gemini AI + Sentence Transformers + FAISS Vector Store
+🔍 **Step 1 - User Query → Retriever**: Your input goes to the retriever  
+🗄️ **Step 2 - Retriever → Vector Store**: Searches 100 career paths for matches  
+🤖 **Step 3 - Context + Prompt → LLM**: Gemini AI gets relevant careers + your query  
+✨ **Step 4 - LLM → Output**: Generates personalized career recommendations  
+
+**Technology Stack**: Gemini AI + Sentence Transformers + FAISS Vector Store + 100 Career Paths
 """)

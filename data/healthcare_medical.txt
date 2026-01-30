@@ -1,0 +1,97 @@
+Doctor (General Physician) Career Path:
+Diagnoses and treats general medical conditions and provides primary healthcare.
+Required Skills: Medical diagnosis, Patient care, Pharmacology, Medical ethics, Communication, Emergency response
+Education: MBBS degree; MD/MS specialization optional
+Experience Level: Junior Doctor (0-2 years), Senior Resident (2-5 years), Consultant (5+ years)
+Salary Range: ₹6-12 LPA (Junior), ₹12-25 LPA (Senior), ₹25-50 LPA (Consultant)
+Growth Path: Junior Doctor → Senior Resident → Consultant → Senior Consultant → Chief of Department
+
+---
+
+Surgeon Career Path:
+Performs surgical procedures to treat injuries, diseases, and deformities.
+Required Skills: Surgical techniques, Anatomy, Physiology, Critical care, Precision, Decision making under pressure
+Education: MBBS + MS/MD in Surgery; Super-specialization (MCh) optional
+Experience Level: Junior Surgeon (0-2 years), Senior Resident (2-5 years), Consultant Surgeon (5+ years)
+Salary Range: ₹8-15 LPA (Junior), ₹15-30 LPA (Senior), ₹30-60 LPA (Consultant)
+Growth Path: Junior Surgeon → Senior Resident → Consultant Surgeon → Senior Consultant → Chief Surgeon
+
+---
+
+Nurse Career Path:
+Provides patient care, administers medications, and assists physicians in medical procedures.
+Required Skills: Patient care, Medication administration, Vital signs monitoring, Medical equipment operation, Communication, Emergency response
+Education: Nursing diploma/BSc Nursing; MSc Nursing for specialization
+Experience Level: Staff Nurse (0-2 years), Senior Nurse (2-5 years), Nurse Manager (5+ years)
+Salary Range: ₹2-4 LPA (Staff), ₹4-8 LPA (Senior), ₹8-15 LPA (Manager)
+Growth Path: Staff Nurse → Senior Nurse → Nurse Supervisor → Nurse Manager → Director of Nursing
+
+---
+
+Pharmacist Career Path:
+Prepares and dispenses medications, provides drug information, and ensures safe medication use.
+Required Skills: Pharmacology, Drug interactions, Patient counseling, Inventory management, Regulatory compliance, Compounding
+Education: BPharm/MPharm degree
+Experience Level: Junior Pharmacist (0-2 years), Senior Pharmacist (2-5 years), Chief Pharmacist (5+ years)
+Salary Range: ₹2-4 LPA (Junior), ₹4-8 LPA (Senior), ₹8-15 LPA (Chief)
+Growth Path: Junior Pharmacist → Senior Pharmacist → Pharmacy Manager → Chief Pharmacist
+
+---
+
+Radiologist Career Path:
+Interprets medical images to diagnose and treat diseases using X-rays, CT, MRI, and ultrasound.
+Required Skills: Image interpretation, Radiation safety, Anatomy, Pathology, Report writing, Technology proficiency
+Education: MBBS + MD/DNB in Radiology
+Experience Level: Junior Radiologist (0-2 years), Senior Resident (2-5 years), Consultant Radiologist (5+ years)
+Salary Range: ₹8-15 LPA (Junior), ₹15-30 LPA (Senior), ₹30-50 LPA (Consultant)
+Growth Path: Junior Radiologist → Senior Resident → Consultant Radiologist → Senior Consultant
+
+---
+
+Anesthesiologist Career Path:
+Administers anesthesia and monitors patients during surgical procedures.
+Required Skills: Anesthesia administration, Patient monitoring, Critical care, Pain management, Pharmacology, Emergency response
+Education: MBBS + MD/DNB in Anesthesiology
+Experience Level: Junior Anesthesiologist (0-2 years), Senior Resident (2-5 years), Consultant (5+ years)
+Salary Range: ₹8-15 LPA (Junior), ₹15-30 LPA (Senior), ₹30-50 LPA (Consultant)
+Growth Path: Junior Anesthesiologist → Senior Resident → Consultant Anesthesiologist → Senior Consultant
+
+---
+
+Medical Laboratory Scientist Career Path:
+Performs laboratory tests to help diagnose, treat, and prevent diseases.
+Required Skills: Laboratory techniques, Quality control, Data analysis, Equipment operation, Safety protocols, Report generation
+Education: BSc in Medical Laboratory Technology; MSc optional
+Experience Level: Junior Lab Technician (0-2 years), Senior Technician (2-5 years), Lab Manager (5+ years)
+Salary Range: ₹2-4 LPA (Junior), ₹4-8 LPA (Senior), ₹8-15 LPA (Manager)
+Growth Path: Junior Technician → Senior Technician → Lab Supervisor → Lab Manager
+
+---
+
+Physical Therapist Career Path:
+Helps patients recover from injuries and illnesses through physical rehabilitation.
+Required Skills: Therapeutic exercises, Manual therapy, Patient assessment, Rehabilitation planning, Pain management, Equipment operation
+Education: Bachelor's/Master's in Physiotherapy
+Experience Level: Junior Therapist (0-2 years), Senior Therapist (2-5 years), Chief Physiotherapist (5+ years)
+Salary Range: ₹2-4 LPA (Junior), ₹4-8 LPA (Senior), ₹8-15 LPA (Chief)
+Growth Path: Junior Therapist → Senior Therapist → Physiotherapy Supervisor → Chief Physiotherapist
+
+---
+
+Psychiatrist Career Path:
+Diagnoses and treats mental health disorders through medication and psychotherapy.
+Required Skills: Psychiatric diagnosis, Psychotherapy, Pharmacology, Crisis intervention, Patient assessment, Counseling
+Education: MBBS + MD/DNB in Psychiatry
+Experience Level: Junior Psychiatrist (0-2 years), Senior Resident (2-5 years), Consultant (5+ years)
+Salary Range: ₹6-12 LPA (Junior), ₹12-25 LPA (Senior), ₹25-45 LPA (Consultant)
+Growth Path: Junior Psychiatrist → Senior Resident → Consultant Psychiatrist → Senior Consultant
+
+---
+
+Public Health Specialist Career Path:
+Promotes and protects community health through education, policy, and disease prevention.
+Required Skills: Epidemiology, Health policy, Community outreach, Data analysis, Program management, Research
+Education: Master's in Public Health (MPH), MBBS + MPH, or related field
+Experience Level: Program Officer (0-2 years), Senior Officer (2-5 years), Director (5+ years)
+Salary Range: ₹4-8 LPA (Officer), ₹8-15 LPA (Senior), ₹15-30 LPA (Director)
+Growth Path: Program Officer → Senior Program Officer → Program Director → Chief Public Health Officer

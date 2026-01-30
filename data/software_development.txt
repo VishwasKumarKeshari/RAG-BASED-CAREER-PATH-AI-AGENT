@@ -1,0 +1,97 @@
+Software Engineer Career Path:
+Develops, tests, and maintains software applications using various programming languages and frameworks.
+Required Skills: Programming languages (Python, Java, C++, JavaScript), Software development methodologies, Version control (Git), Problem-solving
+Education: Bachelor's in Computer Science, Software Engineering, or related field
+Experience Level: Entry-level (0-2 years), Mid-level (2-5 years), Senior (5+ years)
+Salary Range: ₹4-8 LPA (Entry), ₹8-18 LPA (Mid), ₹18-35 LPA (Senior)
+Growth Path: Senior Software Engineer → Tech Lead → Engineering Manager → Director of Engineering
+
+---
+
+Full Stack Developer Career Path:
+Builds complete web applications including both frontend and backend components.
+Required Skills: HTML, CSS, JavaScript, React/Vue/Angular, Node.js/Python/Java, Databases (SQL/NoSQL), REST APIs
+Education: Bachelor's in Computer Science or related field, or self-taught with portfolio
+Experience Level: Entry-level (0-2 years), Mid-level (2-5 years), Senior (5+ years)
+Salary Range: ₹4-8 LPA (Entry), ₹8-16 LPA (Mid), ₹16-30 LPA (Senior)
+Growth Path: Senior Full Stack Developer → Technical Lead → Solutions Architect → CTO
+
+---
+
+Mobile App Developer Career Path:
+Creates mobile applications for iOS and Android platforms.
+Required Skills: Swift/Objective-C (iOS), Kotlin/Java (Android), React Native/Flutter, Mobile UI/UX, App Store deployment
+Education: Bachelor's in Computer Science or related field
+Experience Level: Entry-level (0-2 years), Mid-level (2-5 years), Senior (5+ years)
+Salary Range: ₹4-8 LPA (Entry), ₹8-15 LPA (Mid), ₹15-28 LPA (Senior)
+Growth Path: Senior Mobile Developer → Mobile Tech Lead → Mobile Architect → Head of Mobile Development
+
+---
+
+DevOps Engineer Career Path:
+Manages infrastructure, deployment pipelines, and ensures smooth application operations.
+Required Skills: Linux/Unix, Docker, Kubernetes, CI/CD tools (Jenkins/GitLab), Cloud platforms (AWS/Azure/GCP), Infrastructure as Code
+Education: Bachelor's in Computer Science, IT, or related field
+Experience Level: Mid-level (2-5 years), Senior (5+ years)
+Salary Range: ₹8-15 LPA (Mid), ₹15-30 LPA (Senior)
+Growth Path: Senior DevOps Engineer → DevOps Architect → Site Reliability Engineer → VP of Engineering
+
+---
+
+Backend Developer Career Path:
+Designs and implements server-side logic, databases, and APIs for web applications.
+Required Skills: Server-side languages (Python/Node.js/Java/Go), Databases (PostgreSQL/MongoDB), API design, Microservices, Security
+Education: Bachelor's in Computer Science or related field
+Experience Level: Entry-level (0-2 years), Mid-level (2-5 years), Senior (5+ years)
+Salary Range: ₹4-8 LPA (Entry), ₹8-16 LPA (Mid), ₹16-32 LPA (Senior)
+Growth Path: Senior Backend Developer → Backend Architect → Technical Architect → Chief Architect
+
+---
+
+Frontend Developer Career Path:
+Creates user interfaces and experiences for web applications.
+Required Skills: HTML, CSS, JavaScript, React/Vue/Angular, Responsive design, Web performance optimization, Browser APIs
+Education: Bachelor's in Computer Science, Web Development, or related field
+Experience Level: Entry-level (0-2 years), Mid-level (2-5 years), Senior (5+ years)
+Salary Range: ₹3-7 LPA (Entry), ₹7-14 LPA (Mid), ₹14-26 LPA (Senior)
+Growth Path: Senior Frontend Developer → Frontend Tech Lead → UI/UX Architect → Director of Product Engineering
+
+---
+
+System Administrator Career Path:
+Manages and maintains computer systems, networks, and servers.
+Required Skills: Linux/Windows Server administration, Networking, Security, Scripting (Bash/Python), Virtualization, Monitoring tools
+Education: Bachelor's in Computer Science, IT, or related field
+Experience Level: Entry-level (0-2 years), Mid-level (2-5 years), Senior (5+ years)
+Salary Range: ₹3-6 LPA (Entry), ₹6-12 LPA (Mid), ₹12-22 LPA (Senior)
+Growth Path: Senior System Administrator → System Architect → IT Infrastructure Manager → CIO
+
+---
+
+QA Engineer Career Path:
+Tests software applications to ensure quality and identify bugs.
+Required Skills: Manual testing, Automated testing (Selenium/Cypress), Test case design, Bug tracking, SQL, API testing
+Education: Bachelor's in Computer Science, IT, or related field
+Experience Level: Entry-level (0-2 years), Mid-level (2-5 years), Senior (5+ years)
+Salary Range: ₹3-6 LPA (Entry), ₹6-12 LPA (Mid), ₹12-24 LPA (Senior)
+Growth Path: Senior QA Engineer → QA Lead → Test Automation Architect → Head of Quality Assurance
+
+---
+
+Security Engineer Career Path:
+Protects systems and data from cyber threats and vulnerabilities.
+Required Skills: Network security, Ethical hacking, Cryptography, Security tools (Firewalls, SIEM), Risk assessment, Compliance
+Education: Bachelor's in Computer Science, Cybersecurity, or related field
+Experience Level: Mid-level (2-5 years), Senior (5+ years)
+Salary Range: ₹8-15 LPA (Mid), ₹15-28 LPA (Senior)
+Growth Path: Senior Security Engineer → Security Architect → Chief Information Security Officer → CISO
+
+---
+
+Database Administrator Career Path:
+Manages databases, ensures data integrity, and optimizes performance.
+Required Skills: SQL, Database design, Performance tuning, Backup/recovery, Database security, NoSQL databases
+Education: Bachelor's in Computer Science, IT, or related field
+Experience Level: Mid-level (2-5 years), Senior (5+ years)
+Salary Range: ₹6-12 LPA (Mid), ₹12-24 LPA (Senior)
+Growth Path: Senior DBA → Database Architect → Data Architect → Chief Data Officer

@@ -1,0 +1,97 @@
+Mechanical Engineer Career Path:
+Designs, develops, and tests mechanical systems and products.
+Required Skills: CAD software (AutoCAD, SolidWorks), Thermodynamics, Materials science, Manufacturing processes, FEA
+Education: Bachelor's in Mechanical Engineering
+Experience Level: Entry-level (0-2 years), Mid-level (2-5 years), Senior (5+ years)
+Salary Range: ₹3-6 LPA (Entry), ₹6-12 LPA (Mid), ₹12-25 LPA (Senior)
+Growth Path: Senior Mechanical Engineer → Engineering Manager → Director of Engineering → VP of Engineering
+
+---
+
+Electrical Engineer Career Path:
+Designs and develops electrical systems, circuits, and power systems.
+Required Skills: Circuit design, Power systems, Control systems, PCB design, Embedded systems, MATLAB
+Education: Bachelor's in Electrical Engineering
+Experience Level: Entry-level (0-2 years), Mid-level (2-5 years), Senior (5+ years)
+Salary Range: ₹3-6 LPA (Entry), ₹6-12 LPA (Mid), ₹12-25 LPA (Senior)
+Growth Path: Senior Electrical Engineer → Electrical Engineering Manager → Director of Electrical Engineering
+
+---
+
+Civil Engineer Career Path:
+Plans, designs, and oversees construction of infrastructure projects.
+Required Skills: Structural analysis, Construction management, AutoCAD, Project management, Building codes, Surveying
+Education: Bachelor's in Civil Engineering
+Experience Level: Entry-level (0-2 years), Mid-level (2-5 years), Senior (5+ years)
+Salary Range: ₹3-6 LPA (Entry), ₹6-12 LPA (Mid), ₹12-25 LPA (Senior)
+Growth Path: Senior Civil Engineer → Project Manager → Engineering Director → Chief Engineer
+
+---
+
+Chemical Engineer Career Path:
+Develops processes for chemical manufacturing and product development.
+Required Skills: Process engineering, Chemistry, Thermodynamics, Mass transfer, Process simulation, Safety regulations
+Education: Bachelor's in Chemical Engineering
+Experience Level: Entry-level (0-2 years), Mid-level (2-5 years), Senior (5+ years)
+Salary Range: ₹4-8 LPA (Entry), ₹8-15 LPA (Mid), ₹15-30 LPA (Senior)
+Growth Path: Senior Chemical Engineer → Process Engineering Manager → Director of Chemical Engineering
+
+---
+
+Aerospace Engineer Career Path:
+Designs aircraft, spacecraft, and related systems and equipment.
+Required Skills: Aerodynamics, Propulsion systems, Structures, Avionics, CFD, Aerospace materials
+Education: Bachelor's in Aerospace Engineering, Mechanical Engineering, or related field
+Experience Level: Entry-level (0-2 years), Mid-level (2-5 years), Senior (5+ years)
+Salary Range: ₹5-10 LPA (Entry), ₹10-20 LPA (Mid), ₹20-40 LPA (Senior)
+Growth Path: Senior Aerospace Engineer → Aerospace Engineering Manager → Director of Aerospace Engineering
+
+---
+
+Biomedical Engineer Career Path:
+Applies engineering principles to medicine and biology for healthcare solutions.
+Required Skills: Biomedical instrumentation, Biomaterials, Medical imaging, Biomechanics, Regulatory affairs
+Education: Bachelor's in Biomedical Engineering, Bioengineering, or related field
+Experience Level: Entry-level (0-2 years), Mid-level (2-5 years), Senior (5+ years)
+Salary Range: ₹4-8 LPA (Entry), ₹8-15 LPA (Mid), ₹15-30 LPA (Senior)
+Growth Path: Senior Biomedical Engineer → R&D Manager → Director of Biomedical Engineering
+
+---
+
+Environmental Engineer Career Path:
+Develops solutions to environmental problems and sustainability challenges.
+Required Skills: Environmental impact assessment, Water treatment, Air quality, Waste management, Sustainability, GIS
+Education: Bachelor's in Environmental Engineering, Civil Engineering, or related field
+Experience Level: Entry-level (0-2 years), Mid-level (2-5 years), Senior (5+ years)
+Salary Range: ₹3-6 LPA (Entry), ₹6-12 LPA (Mid), ₹12-24 LPA (Senior)
+Growth Path: Senior Environmental Engineer → Environmental Engineering Manager → Director of Sustainability
+
+---
+
+Industrial Engineer Career Path:
+Optimizes complex processes and systems to improve efficiency and productivity.
+Required Skills: Process optimization, Lean manufacturing, Six Sigma, Operations research, Supply chain management, Simulation
+Education: Bachelor's in Industrial Engineering, Mechanical Engineering, or related field
+Experience Level: Entry-level (0-2 years), Mid-level (2-5 years), Senior (5+ years)
+Salary Range: ₹4-8 LPA (Entry), ₹8-15 LPA (Mid), ₹15-28 LPA (Senior)
+Growth Path: Senior Industrial Engineer → Operations Manager → Director of Operations → COO
+
+---
+
+Petroleum Engineer Career Path:
+Designs and develops methods for extracting oil and gas from deposits.
+Required Skills: Reservoir engineering, Drilling engineering, Production engineering, Geology, Well logging, Petroleum economics
+Education: Bachelor's in Petroleum Engineering, Chemical Engineering, or related field
+Experience Level: Entry-level (0-2 years), Mid-level (2-5 years), Senior (5+ years)
+Salary Range: ₹6-12 LPA (Entry), ₹12-25 LPA (Mid), ₹25-50 LPA (Senior)
+Growth Path: Senior Petroleum Engineer → Petroleum Engineering Manager → Director of Petroleum Engineering
+
+---
+
+Robotics Engineer Career Path:
+Designs and develops robotic systems and automation solutions.
+Required Skills: Robotics, Control systems, Sensors, Actuators, Programming (C++/Python), Machine vision, AI/ML
+Education: Bachelor's in Robotics Engineering, Mechanical Engineering, Electrical Engineering, or Computer Science
+Experience Level: Mid-level (2-5 years), Senior (5+ years)
+Salary Range: ₹8-15 LPA (Mid), ₹15-30 LPA (Senior)
+Growth Path: Senior Robotics Engineer → Robotics Engineering Manager → Director of Robotics → Chief Technology Officer

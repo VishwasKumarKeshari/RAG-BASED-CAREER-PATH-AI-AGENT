@@ -1,0 +1,97 @@
+Data Scientist Career Path:
+Analyzes complex datasets to extract insights and build predictive models.
+Required Skills: Python/R, Statistics, Machine Learning, SQL, Data visualization (Tableau/Power BI), Big data tools
+Education: Bachelor's/Master's in Statistics, Mathematics, Computer Science, or related quantitative field
+Experience Level: Entry-level (0-2 years), Mid-level (2-5 years), Senior (5+ years)
+Salary Range: ₹6-12 LPA (Entry), ₹12-25 LPA (Mid), ₹25-45 LPA (Senior)
+Growth Path: Senior Data Scientist → Lead Data Scientist → Principal Data Scientist → Chief Data Scientist
+
+---
+
+Machine Learning Engineer Career Path:
+Develops and deploys machine learning models at scale in production environments.
+Required Skills: Python, TensorFlow/PyTorch, ML algorithms, MLOps, Cloud platforms, System design, Docker/Kubernetes
+Education: Bachelor's/Master's in Computer Science, Data Science, or related field
+Experience Level: Mid-level (2-5 years), Senior (5+ years)
+Salary Range: ₹10-18 LPA (Mid), ₹18-35 LPA (Senior)
+Growth Path: Senior ML Engineer → ML Architect → Director of Machine Learning → VP of AI/ML
+
+---
+
+Data Analyst Career Path:
+Interprets data to help organizations make informed business decisions.
+Required Skills: Excel, SQL, Python/R, Data visualization, Statistical analysis, Business intelligence tools
+Education: Bachelor's in Business, Statistics, Computer Science, or related field
+Experience Level: Entry-level (0-2 years), Mid-level (2-5 years), Senior (5+ years)
+Salary Range: ₹3-6 LPA (Entry), ₹6-12 LPA (Mid), ₹12-22 LPA (Senior)
+Growth Path: Senior Data Analyst → Data Analytics Manager → Director of Analytics → Chief Analytics Officer
+
+---
+
+Business Intelligence Analyst Career Path:
+Creates reports and dashboards to support business decision-making.
+Required Skills: SQL, ETL tools, Data warehousing, BI tools (Tableau, Power BI), Data modeling, KPI development
+Education: Bachelor's in Business, Computer Science, or related field
+Experience Level: Entry-level (0-2 years), Mid-level (2-5 years), Senior (5+ years)
+Salary Range: ₹4-8 LPA (Entry), ₹8-15 LPA (Mid), ₹15-28 LPA (Senior)
+Growth Path: Senior BI Analyst → BI Developer → BI Manager → Director of Business Intelligence
+
+---
+
+Data Engineer Career Path:
+Builds and maintains data pipelines and infrastructure for data processing.
+Required Skills: Python/Java/Scala, SQL, ETL/ELT, Big data tools (Spark, Hadoop), Cloud data platforms, Data modeling
+Education: Bachelor's in Computer Science, Software Engineering, or related field
+Experience Level: Mid-level (2-5 years), Senior (5+ years)
+Salary Range: ₹8-15 LPA (Mid), ₹15-30 LPA (Senior)
+Growth Path: Senior Data Engineer → Data Architect → Principal Data Engineer → Chief Technology Officer
+
+---
+
+AI Research Scientist Career Path:
+Conducts research and develops novel AI and machine learning algorithms.
+Required Skills: Advanced mathematics, Deep learning, Research methodology, Python, Academic publishing, Experimental design
+Education: PhD in Computer Science, AI, Machine Learning, or related field
+Experience Level: Mid-level (2-5 years), Senior (5+ years)
+Salary Range: ₹15-25 LPA (Mid), ₹25-50 LPA (Senior)
+Growth Path: Senior Research Scientist → Principal Researcher → Research Director → Chief AI Officer
+
+---
+
+NLP Engineer Career Path:
+Develops natural language processing applications and systems.
+Required Skills: Python, NLP libraries (spaCy, NLTK, Transformers), Deep learning, Text mining, Language models
+Education: Bachelor's/Master's in Computer Science, Linguistics, or related field
+Experience Level: Mid-level (2-5 years), Senior (5+ years)
+Salary Range: ₹10-18 LPA (Mid), ₹18-35 LPA (Senior)
+Growth Path: Senior NLP Engineer → NLP Architect → Director of NLP → Head of AI Research
+
+---
+
+Computer Vision Engineer Career Path:
+Develops computer vision applications and image processing systems.
+Required Skills: Python, OpenCV, Deep learning (CNNs), Image processing, TensorFlow/PyTorch, GPU programming
+Education: Bachelor's/Master's in Computer Science, Electrical Engineering, or related field
+Experience Level: Mid-level (2-5 years), Senior (5+ years)
+Salary Range: ₹10-18 LPA (Mid), ₹18-35 LPA (Senior)
+Growth Path: Senior Computer Vision Engineer → CV Architect → Director of Computer Vision → Chief AI Officer
+
+---
+
+Quantitative Analyst Career Path:
+Applies mathematical and statistical methods to financial and risk management problems.
+Required Skills: Mathematics, Statistics, Programming (Python/C++/R), Financial modeling, Risk analysis, Derivatives
+Education: Bachelor's/Master's/PhD in Mathematics, Statistics, Financial Engineering, or related quantitative field
+Experience Level: Entry-level (0-2 years), Mid-level (2-5 years), Senior (5+ years)
+Salary Range: ₹8-15 LPA (Entry), ₹15-30 LPA (Mid), ₹30-60 LPA (Senior)
+Growth Path: Senior Quant Analyst → Quant Developer → Quantitative Portfolio Manager → Chief Risk Officer
+
+---
+
+Data Science Manager Career Path:
+Leads data science teams and manages data science projects and initiatives.
+Required Skills: Data science expertise, Team management, Project management, Stakeholder communication, Business strategy
+Education: Bachelor's/Master's in Data Science, Computer Science, or related field
+Experience Level: Senior (5+ years)
+Salary Range: ₹20-35 LPA (Senior), ₹35-60 LPA (Executive)
+Growth Path: Director of Data Science → VP of Data Science → Chief Data Officer → Chief Technology Officer

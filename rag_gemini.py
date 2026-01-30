@@ -1,234 +1,317 @@
 """
-RAG Pipeline using Google Gemini AI and FAISS vector store.
-Simpler, faster, and avoids LangChain import issues.
+Enhanced RAG Pipeline using Google Gemini AI and ChromaDB vector store.
+Reads knowledge base from TXT files, implements text chunking, creates embeddings, and stores in vector database.
 """
 
 import os
-import json
 from typing import List, Tuple
 import google.generativeai as genai
-from sentence_transformers import SentenceTransformer
-import numpy as np
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_chroma import Chroma
+from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_core.documents import Document
 
 
 class CareerRAG:
-    """RAG system for career recommendations using Gemini AI"""
-    
-    def __init__(self, api_key: str = None):
+    """Enhanced RAG system for career recommendations using Gemini AI with FAISS vector database"""
+
+    def __init__(self, knowledge_base_path: str = "data"):
         """
-        Initialize RAG with Gemini API.
-        
+        Initialize RAG with FAISS vector store (no API key needed for retrieval).
+
         Args:
-            api_key: Google Gemini API key (uses GEMINI_API_KEY env var if not provided)
+            knowledge_base_path: Path to the knowledge base directory containing TXT files
         """
-        self.api_key = api_key or os.getenv("GEMINI_API_KEY")
-        if not self.api_key:
-            raise ValueError("GEMINI_API_KEY not found. Set environment variable or pass api_key.")
-        
-        genai.configure(api_key=self.api_key)
-        # Choose a model name at runtime. Gemini model names / availability vary by account
-        # We'll attempt to discover available models and pick a Gemini variant if present,
-        # otherwise fall back to a broadly-available text model (text-bison).
-        self.model_name = None
-        try:
-            # list_models may return a list-like object with model info
-            available = []
+        self.knowledge_base_path = knowledge_base_path
+
+        # Initialize embeddings and vector store (retrieval components)
+        self.embeddings_model = HuggingFaceEmbeddings(model_name='all-MiniLM-L6-v2')
+        self.vector_store = None
+        self.documents = None
+
+
+
+
+
+
+    def load_documents(self) -> List[Document]:
+        """
+        Load documents from TXT files in data directory.
+
+        Returns:
+            List of Document objects containing raw text sections
+        """
+        documents = []
+
+        # Check if knowledge_base_path is a directory
+        if os.path.isdir(self.knowledge_base_path):
+            # Read all .txt files from the directory
+            txt_files = [f for f in os.listdir(self.knowledge_base_path) if f.endswith('.txt')]
+            if not txt_files:
+                raise FileNotFoundError(f"No .txt files found in directory: {self.knowledge_base_path}")
+
+            print(f"📂 Found {len(txt_files)} knowledge base files: {', '.join(txt_files)}")
+
+            for txt_file in txt_files:
+                file_path = os.path.join(self.knowledge_base_path, txt_file)
+                try:
+                    with open(file_path, 'r', encoding='utf-8') as file:
+                        content = file.read()
+
+                    # Split content into sections (separated by ---)
+                    sections = [section.strip() for section in content.split('---') if section.strip()]
+
+                    # Create Document objects with file-specific metadata
+                    file_documents = [Document(page_content=section,
+                                             metadata={"source": txt_file, "section": i})
+                                    for i, section in enumerate(sections)]
+                    documents.extend(file_documents)
+
+                    print(f"📄 Loaded {len(sections)} sections from {txt_file}")
+
+                except FileNotFoundError:
+                    print(f"⚠️ Warning: File not found: {file_path}")
+                    continue
+                except Exception as e:
+                    print(f"⚠️ Warning: Error reading {file_path}: {e}")
+                    continue
+
+        else:
+            # Fallback to single file reading for backward compatibility
             try:
-                models_resp = genai.list_models()
-                # Try to extract names conservatively
-                if isinstance(models_resp, dict) and 'models' in models_resp:
-                    available = [m.get('name', '') for m in models_resp.get('models', []) if isinstance(m, dict)]
-                elif isinstance(models_resp, (list, tuple)):
-                    # elements may be dicts or strings
-                    for m in models_resp:
-                        if isinstance(m, dict):
-                            name = m.get('name') or m.get('model') or ''
-                            available.append(name)
-                        else:
-                            available.append(str(m))
-            except Exception:
-                # If list_models is not supported or fails, ignore and use fallback
-                available = []
+                with open(self.knowledge_base_path, 'r', encoding='utf-8') as file:
+                    content = file.read()
+            except FileNotFoundError:
+                raise FileNotFoundError(f"Knowledge base file not found: {self.knowledge_base_path}")
 
-            candidates = [
-                'models/gemini-pro', 'models/gemini-1.0', 'models/gemini-1.5',
-                'gemini-pro', 'gemini-1.0', 'gemini-1.5',
-                'models/text-bison-001', 'text-bison-001', 'text-bison'
-            ]
-            for c in candidates:
-                for a in available:
-                    if c in a:
-                        self.model_name = a
-                        break
-                if self.model_name:
-                    break
-        except Exception:
-            self.model_name = None
+            # Split content into sections (separated by ---)
+            sections = [section.strip() for section in content.split('---') if section.strip()]
 
-        if not self.model_name:
-            # Try a common Gemini alias available in most accounts
-            self.model_name = 'models/gemini-flash-latest'
+            # Create Document objects
+            documents = [Document(page_content=section, metadata={"source": self.knowledge_base_path, "section": i})
+                        for i, section in enumerate(sections)]
 
-        # Instantiate a GenerativeModel wrapper for generation calls
-        try:
-            self.model = genai.GenerativeModel(self.model_name)
-        except Exception:
-            # If instantiation fails, leave model as None and rely on lower-level calls
-            self.model = None
-        
-        # Use sentence-transformers for embeddings (no API calls needed)
-        self.embeddings_model = SentenceTransformer('all-MiniLM-L6-v2')
-        self.career_embeddings = None
-        self.career_documents = None
-    
-    def create_knowledge_base(self, documents: List[str]) -> None:
+            print(f"📄 Loaded {len(sections)} sections from {self.knowledge_base_path}")
+
+        if not documents:
+            raise ValueError("No documents loaded from knowledge base")
+
+        return documents
+
+
+    def chunk_documents(self, documents: List[Document]) -> List[Document]:
         """
-        Create vector store from career documents.
-        
+        Split documents into smaller chunks for better retrieval.
+
         Args:
-            documents: List of career document strings
+            documents: List of Document objects to chunk
+
+        Returns:
+            List of chunked Document objects
         """
-        self.career_documents = documents
-        
-        # Generate embeddings for all documents
-        print(f"📊 Generating embeddings for {len(documents)} careers...")
-        self.career_embeddings = self.embeddings_model.encode(documents, convert_to_tensor=True)
-        print("✅ Embeddings generated successfully")
+        # Initialize text splitter for chunking
+        text_splitter = RecursiveCharacterTextSplitter(
+            chunk_size=1000,  # Maximum characters per chunk
+            chunk_overlap=200,  # Overlap between chunks
+            separators=["\n\n", "\n", ". ", " ", ""]  # Split on paragraphs, lines, sentences, words
+        )
+
+        # Split documents into chunks
+        chunked_documents = text_splitter.split_documents(documents)
+
+        print(f"✂️ Split into {len(chunked_documents)} chunks from {len(documents)} sections")
+
+        return chunked_documents
+
+
+    def load_knowledge_base(self) -> List[Document]:
+        """
+        Load and chunk the knowledge base from TXT files in data directory.
+        This method combines document loading and chunking for backward compatibility.
+
+        Returns:
+            List of Document objects containing chunked text
+        """
+        documents = self.load_documents()
+        chunked_documents = self.chunk_documents(documents)
+        return chunked_documents
     
-    def retrieve_similar_careers(self, query: str, top_k: int = 3) -> List[Tuple[str, float]]:
+
+
+
+
+    def create_vector_store(self) -> None:
         """
-        Retrieve similar careers using semantic similarity.
-        
+        Create ChromaDB vector store from knowledge base documents with explicit pipeline steps.
+        """
+        print("📚 Step 1: Loading documents...")
+        raw_documents = self.load_documents()
+
+        print("✂️ Step 2: Chunking documents...")
+        self.documents = self.chunk_documents(raw_documents)
+
+        print("🔍 Step 3: Creating embeddings and storing in ChromaDB vector database...")
+        # Create ChromaDB vector store with explicit pipeline
+        self.vector_store = Chroma.from_documents(
+            documents=self.documents,
+            embedding=self.embeddings_model,
+            collection_name="career_knowledge_base",
+            persist_directory="./chroma_db"
+        )
+
+        print("✅ Vector store created successfully")
+
+
+
+
+    def retrieve_similar_documents(self, query: str, top_k: int = 3) -> List[Tuple[Document, float]]:
+        """
+        Retrieve similar documents using semantic similarity.
+
         Args:
             query: User input (skills, interests, description)
             top_k: Number of results to return
-            
+
         Returns:
-            List of (career_info, similarity_score) tuples
+            List of (Document, similarity_score) tuples
         """
-        if self.career_embeddings is None:
-            raise RuntimeError("Knowledge base not initialized. Call create_knowledge_base first.")
-        
-        # Encode query
-        query_embedding = self.embeddings_model.encode(query, convert_to_tensor=True)
-        
-        # Compute similarities
-        from sentence_transformers import util
-        similarities = util.pytorch_cos_sim(query_embedding, self.career_embeddings)[0]
-        
-        # Get top-k results
-        top_results = np.argsort(-similarities.cpu().numpy())[:top_k]
-        
-        results = []
-        for idx in top_results:
-            score = float(similarities[idx].cpu().numpy())
-            results.append((self.career_documents[idx], score))
-        
-        return results
+        if self.vector_store is None:
+            raise RuntimeError("Vector store not initialized. Call create_vector_store first.")
+
+        # Perform similarity search
+        docs_and_scores = self.vector_store.similarity_search_with_score(query, k=top_k)
+
+        return docs_and_scores
     
-    def recommend_career(self, user_input: str) -> Tuple[str, float]:
+
+
+
+
+
+
+
+    def recommend_career(self, user_query: str, api_key: str = None) -> Tuple[str, float]:
         """
-        Generate career recommendation using Gemini AI.
-        
+        Generate career recommendation using RAG pipeline:
+        1. User query → Retriever → Vector Store
+        2. Retrieved context + prompt → LLM → Output
+
         Args:
-            user_input: User profile (skills, interests, experience)
-            
+            user_query: User profile (skills, interests, experience)
+            api_key: Google Gemini API key (required for LLM generation)
+
         Returns:
             Tuple of (recommendation, confidence_score)
         """
-        if self.career_embeddings is None:
-            raise RuntimeError("Knowledge base not initialized.")
-        
-        # Retrieve relevant careers
-        similar_careers = self.retrieve_similar_careers(user_input, top_k=3)
-        context = "\n\n".join([career[0] for career in similar_careers])
-        
-        # Build prompt for Gemini
-        prompt = f"""You are an expert career counselor. Based on the user's profile and relevant career information, provide personalized recommendations.
+        if self.vector_store is None:
+            raise RuntimeError("Vector store not initialized. Call create_vector_store first.")
 
-USER PROFILE:
-{user_input}
+        # Step 1: User query goes into retriever connected to vector store
+        print("🔍 Step 1: Retrieving relevant career information...")
+        retrieved_docs = self.retrieve_similar_documents(user_query, top_k=3)
 
-RELEVANT CAREER INFORMATION:
+        # Extract context from retrieved documents
+        context = "\n\n".join([doc.page_content for doc, score in retrieved_docs])
+        sources = [doc.metadata.get('source', 'unknown') for doc, score in retrieved_docs]
+
+        print(f"📄 Retrieved {len(retrieved_docs)} relevant career paths from: {set(sources)}")
+
+        # Step 2: Get API key for LLM (only needed at this final step)
+        api_key = api_key or os.getenv("GEMINI_API_KEY")
+        if not api_key:
+            raise ValueError("API key required for LLM generation. Pass api_key parameter or set GEMINI_API_KEY environment variable.")
+
+        # Step 3: Initialize LLM with API key (step-wise integration)
+        print("🔑 Step 3: Initializing LLM for final generation...")
+        genai.configure(api_key=api_key)
+        model_name = 'models/gemini-flash-latest'
+        try:
+            model = genai.GenerativeModel(model_name)
+        except Exception as e:
+            raise RuntimeError(f"Failed to initialize Gemini model: {e}")
+
+        # Step 4: LLM gets context + prompt (what user needs to fetch)
+        print("🤖 Step 4: Generating personalized recommendation...")
+
+        prompt = f"""You are an expert career counselor with access to a comprehensive database of career paths.
+
+USER QUERY: {user_query}
+
+RETRIEVED CAREER CONTEXT:
 {context}
 
-Please provide:
-1. Top recommended career(s) with specific reasons
-2. Why this career matches their profile
-3. Skills they already possess
-4. Skills to develop
-5. Learning resources and next steps
+TASK: Based on the user's query and the retrieved career information above, provide a personalized career recommendation that includes:
 
-Be encouraging, specific, and actionable."""
-        
+1. **Top Career Recommendations**: Suggest 2-3 most suitable careers with specific reasons why they match
+2. **Skills Match Analysis**: What skills they already have vs. what they need to develop
+3. **Career Path Details**: Salary ranges, experience levels, growth opportunities
+4. **Action Plan**: Specific next steps, learning resources, and timeline
+5. **Alternative Options**: Other career paths they might consider
+
+Be specific, encouraging, and provide actionable advice. Focus on careers that align with their stated interests and skills."""
+
         try:
-            # Prefer the GenerativeModel wrapper if available
-            if getattr(self, 'model', None) is not None:
-                resp = self.model.generate_content(prompt)
-                # The SDK returns an object with .text attribute per docs
-                recommendation = getattr(resp, 'text', None) or str(resp)
-            else:
-                # Fall back to lower-level API if wrapper isn't available
-                try:
-                    resp = genai.list_models()
-                except Exception:
-                    resp = None
-                # Attempt a direct RPC via model name
-                try:
-                    # Some SDK versions expose a 'generate_content' helper on the module
-                    fn = getattr(genai, 'generate_content', None)
-                    if fn:
-                        resp = fn(model=self.model_name, prompt=prompt)
-                        recommendation = getattr(resp, 'text', None) or str(resp)
-                    else:
-                        # As last resort, raise so caller sees the error
-                        raise RuntimeError('No supported generate method available in google.generativeai SDK')
-                except Exception as e:
-                    raise
-            
-            # Use highest similarity score as confidence
-            confidence = similar_careers[0][1] if similar_careers else 0.5
-            
+            response = model.generate_content(prompt)
+            recommendation = getattr(response, 'text', None) or str(response)
+
+            # Step 5: Calculate confidence based on retrieval scores
+            confidence = sum(score for _, score in retrieved_docs) / len(retrieved_docs) if retrieved_docs else 0.5
+
+            print("✅ Step 5: Recommendation generated successfully")
             return recommendation, confidence
-        
+
         except Exception as e:
-            return f"Error generating recommendation: {str(e)}", 0.0
+            error_msg = f"Error in LLM generation: {str(e)}"
+            print(f"❌ {error_msg}")
+            return error_msg, 0.0
+        
 
 
-def demo_rag():
-    """Demo function to test RAG with sample careers"""
-    from career_knowledge_base import get_career_documents
-    
-    print("🚀 Initializing Gemini RAG Pipeline...")
-    rag = CareerRAG(api_key="AIzaSyA9lXUSXfzs5kv9NOZ-p-r4YHWzeoXX-z4")
-    
-    print("📚 Loading career knowledge base...")
-    docs = get_career_documents()
-    rag.create_knowledge_base(docs)
-    
-    print("\n" + "="*60)
-    print("🎯 Testing Career Recommendation")
-    print("="*60)
-    
-    # Test case
-    test_input = "I have 2 years of Python experience, love machine learning and data analysis, want to build scalable systems"
-    
-    print(f"\nUser Profile: {test_input}\n")
-    print("Generating recommendation...")
-    
-    recommendation, confidence = rag.recommend_career(test_input)
-    print(f"\n✅ Confidence Score: {confidence:.0%}")
-    print(f"\n📝 Recommendation:\n{recommendation}")
-    
-    print("\n" + "="*60)
-    print("Similar Careers:")
-    print("="*60)
-    
-    similar = rag.retrieve_similar_careers(test_input, top_k=3)
-    for i, (career, score) in enumerate(similar, 1):
-        print(f"\n{i}. Similarity: {score:.0%}")
-        print(career[:200] + "...")
 
 
-if __name__ == "__main__":
-    demo_rag()
+
+    def save_vector_store(self, path: str = "./chroma_db") -> None:
+        """
+        Save the ChromaDB vector store to disk.
+        Note: ChromaDB automatically persists when created with persist_directory.
+
+        Args:
+            path: Directory path (not used for ChromaDB as it auto-persists)
+        """
+        if self.vector_store is None:
+            raise RuntimeError("Vector store not initialized. Call create_vector_store first.")
+
+        # ChromaDB persists automatically, but we can force persist if needed
+        try:
+            self.vector_store.persist()
+            print(f"💾 Vector store persisted to {path}")
+        except AttributeError:
+            # persist() method might not exist in all versions
+            print("💾 Vector store is automatically persisted with ChromaDB")
+
+
+
+
+
+
+    def load_vector_store(self, path: str = "./chroma_db") -> None:
+        """
+        Load the ChromaDB vector store from disk.
+
+        Args:
+            path: Directory path to load the vector store from
+        """
+        try:
+            self.vector_store = Chroma(
+                collection_name="career_knowledge_base",
+                embedding_function=self.embeddings_model,
+                persist_directory=path
+            )
+            print(f"📂 Vector store loaded from {path}")
+        except Exception as e:
+            print(f"❌ Failed to load vector store: {e}")
+            print("Creating new vector store...")
+            self.create_vector_store()
+
+
+

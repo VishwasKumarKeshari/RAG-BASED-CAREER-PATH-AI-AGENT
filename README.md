@@ -108,7 +108,8 @@ Then open: **http://localhost:8501**- The trained pipeline is pickled with `jobl
 career-detection/
 ├── app_gemini.py                 # Main Streamlit web interface
 ├── rag_gemini.py                 # RAG pipeline with Gemini AI
-├── career_knowledge_base.py      # Career documents & data (15 careers)
+├── data/
+│   └── career_knowledge_base.txt # Career documents & data (15 careers)
 ├── requirements.txt              # Python dependencies
 ├── .env                          # API keys (gitignored)
 └── .gitignore                    # Git configuration
@@ -143,10 +144,11 @@ Display Result + Confidence Score
 - `retrieve_similar_careers()`: Semantic search for matching careers
 - `recommend_career()`: Calls Gemini API for personalized recommendations
 
-### `career_knowledge_base.py` - Knowledge Base
-- 15 comprehensive career documents
+### `data/career_knowledge_base.txt` - Knowledge Base
+- 15 comprehensive career documents in structured text format
 - Each career includes: description, skills, education, salary, growth path
 - Source of truth for career information
+- Separated by `---` delimiters for easy parsing
 
 ### `app_gemini.py` - Streamlit UI
 - Two interaction modes (Structured & Natural Language)
@@ -230,8 +232,8 @@ Display Result + Confidence Score
 
 ## 🤝 Contributing
 
-Want to add more careers or features? 
-1. Edit `career_knowledge_base.py` to add career documents
+Want to add more careers or features?
+1. Edit `data/career_knowledge_base.txt` to add career documents (use `---` separators)
 2. Test with `python rag_gemini.py`
 3. Push to GitHub!
 
