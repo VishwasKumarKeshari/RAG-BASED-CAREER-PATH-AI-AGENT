@@ -29,3 +29,6 @@ Thumbs.db
 
 # Jupyter
 .ipynb_checkpoints/
+
+# ChromaDB vector database
+chroma_db/
