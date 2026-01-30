@@ -1,51 +1,63 @@
-﻿#  RAG-Based Career Path AI Agent
+# 🎯 Career Compass - AI-Powered Career Recommendations
 
-An intelligent career recommendation system powered by **Google Gemini AI**, **ChromaDB vector database**, and **Retrieval-Augmented Generation (RAG)** technology. This system provides personalized career guidance by analyzing user skills, interests, and preferences against a comprehensive knowledge base of 100 career paths across 10 diverse categories.
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-blue?logo=github)](https://github.com/VishwasKumarKeshari/RAG-BASED-CAREER-PATH-AI-AGENT)
+[![Streamlit](https://img.shields.io/badge/Streamlit-App-red?logo=streamlit)](https://share.streamlit.io)
+[![Python](https://img.shields.io/badge/Python-3.8+-blue?logo=python)](https://www.python.org/)
+[![License](https://img.shields.io/badge/License-MIT-green)](https://opensource.org/licenses/MIT)
 
-![Career Compass](https://img.shields.io/badge/AI-Powered-blue?style=for-the-badge&logo=google)
-![RAG System](https://img.shields.io/badge/RAG-Technology-green?style=for-the-badge)
-![ChromaDB](https://img.shields.io/badge/Vector-DB-orange?style=for-the-badge&logo=chroma)
+An intelligent career recommendation system powered by **Google Gemini AI** and **Retrieval-Augmented Generation (RAG)**. Get personalized career suggestions based on your skills, interests, and background using advanced AI and semantic search.
 
-##  Key Features
+## 🌟 Features
 
-###  AI-Powered Intelligence
-- **Google Gemini AI** for natural language understanding and personalized recommendations
-- **Context-aware responses** that consider user background, skills, and career goals
-- **Intelligent reasoning** with step-by-step career guidance
+✅ **AI-Powered Recommendations** - Uses Google Gemini AI for intelligent, context-aware career suggestions  
+✅ **Semantic Search** - Retrieves relevant careers using advanced embeddings (Sentence Transformers)  
+✅ **Two Input Modes**:
+   - 📋 **Structured**: Fill form with degree, branch, skills, experience
+   - 📝 **Natural Language**: Describe yourself freely  
+✅ **Confidence Scoring** - See match percentages for each recommended career  
+✅ **100+ Career Profiles** - Comprehensive knowledge base covering diverse roles across 10 categories  
+✅ **Real-time Processing** - Instant recommendations with detailed reasoning  
+✅ **Modular Architecture** - Clean, maintainable code with separate RAG pipeline  
 
-###  Advanced Retrieval System
-- **ChromaDB vector database** for efficient similarity search
-- **Sentence Transformers** (all-MiniLM-L6-v2) for high-quality embeddings
-- **Semantic search** that understands meaning, not just keywords
+## 📋 Prerequisites
 
-###  Comprehensive Career Database
-- **100 career paths** across 10 major categories
-- **Detailed profiles** including skills, education, salary, and growth paths
-- **Real-time matching** with confidence scoring
-
-###  User-Friendly Interface
-- **Streamlit web application** with intuitive design
-- **Dual input modes**: Structured forms and natural language
-- **Interactive recommendations** with detailed explanations
-
-###  Modular Architecture
-- **Separation of concerns** with dedicated functions for each pipeline step
-- **Step-wise API integration** (API keys only needed for LLM generation)
-- **Persistent vector storage** with automatic ChromaDB management
-
-##  Quick Start
-
-### Prerequisites
 - Python 3.8+
-- Google Gemini API key ([Get free key](https://makersuite.google.com/app/apikey))
+- Google Gemini API key (free at [Google AI Studio](https://makersuite.google.com/app/apikey))
+
+## 🚀 Quick Start
 
 ### Installation
 
 1. **Clone the repository**
-   `ash
-   git clone <your-repo-url>
+   ```bash
+   git clone https://github.com/VishwasKumarKeshari/RAG-BASED-CAREER-PATH-AI-AGENT.git
    cd "RAG BASED CAREER PATH AI AGENT"
-   `
+   ```
+
+2. **Create virtual environment**
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+
+3. **Install dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Configure API key**
+   Create a `.streamlit/secrets.toml` file:
+   ```toml
+   GEMINI_API_KEY = "your_actual_api_key_here"
+   ```
+
+5. **Launch the application**
+   ```bash
+   streamlit run app_gemini.py
+   ```
+
+6. **Open your browser**
+   Navigate to: `http://localhost:8501`
 
 2. **Create virtual environment**
    `ash
@@ -75,283 +87,161 @@ An intelligent career recommendation system powered by **Google Gemini AI**, **C
 ##  Project Structure
 
 `
-RAG BASED CAREER PATH AI AGENT/
-  app_gemini.py              # Streamlit web interface
-  rag_gemini.py              # RAG pipeline implementation
-  requirements.txt           # Python dependencies
-  README.md                  # Project documentation
-  .gitignore                 # Git ignore rules
-  .streamlit/                # Streamlit configuration
-     secrets.toml          # API keys (create this file)
-  data/                     # Career knowledge base
-     business_finance.txt
-     creative_design.txt
-     data_science_ml.txt
-     education_research.txt
-     engineering.txt
-     healthcare_medical.txt
-     legal_hr.txt
-     marketing_sales.txt
-     operations_logistics.txt
-     software_development.txt
-  chroma_db/               # ChromaDB vector database
-     chroma.sqlite3       # Database metadata
-     [collection_id]/     # Vector data files
-  __pycache__/             # Python cache (ignored)
+career-detection/
+ app_gemini.py                 # Main Streamlit web interface
+ rag_gemini.py                 # RAG pipeline with Gemini AI
+ career_knowledge_base.py      # Career data processing utilities
+ data/                         # Career knowledge base (10 categories)
+    technology.txt
+    healthcare.txt
+    finance.txt
+    ...
+ chroma_db/                    # Vector database storage
+ requirements.txt              # Python dependencies
+ .streamlit/
+    secrets.toml              # API keys (gitignored)
+ README.md
 `
 
 ##  System Architecture
 
 ### RAG Pipeline Flow
 `
-User Input (Skills/Interests/Description)
-          
-          
+User Input
     
-      Document       
-      Loading          data/*.txt files
+[Document Loading] (Load career knowledge base)
     
-          
-          
+[Text Chunking] (Split into manageable chunks)
     
-      Text Chunking    RecursiveCharacterTextSplitter
+[Embedding Generation] (Sentence Transformers: all-MiniLM-L6-v2)
     
-          
-          
+[Vector Storage] (ChromaDB for persistence)
     
-      Embedding        Sentence Transformers
-      Generation          (all-MiniLM-L6-v2)
+[Semantic Search] (Cosine similarity retrieval)
     
-          
-          
+[Context Building] (Combine user input + relevant careers)
     
-      Vector Storage   ChromaDB
+[Gemini API Call] (gemini-pro model for generation)
     
-          
-          
-    
-      Similarity     
-      Search           Cosine similarity
-    
-          
-          
-    
-      Context        
-      Building         Top-k relevant careers
-    
-          
-          
-    
-      Gemini AI        Personalized
-      Generation          recommendations
-    
-          
-          
-     Final Recommendation + Confidence Scores
+[Personalized Recommendation] (With reasoning & next steps)
 `
 
 ##  Core Components
 
-### ag_gemini.py - RAG Pipeline Engine
+### 
+ag_gemini.py - RAG Pipeline
+- CareerRAG class: Main orchestrator for the RAG system
+- load_documents(): Loads and processes career data from multiple files
+- chunk_documents(): Splits documents into optimal chunks for embedding
+- create_vector_store(): Generates embeddings and stores in ChromaDB
+- 
+etrieve_similar_documents(): Performs semantic search for relevant careers
 
-**Modular Functions:**
-- load_documents() - Load raw career documents from TXT files
-- chunk_documents() - Split documents into manageable chunks
-- create_vector_store() - Generate embeddings and store in ChromaDB
-- load_knowledge_base() - Combined loading + chunking (backward compatibility)
-- etrieve_similar_documents() - Semantic search with similarity scores
-- ecommend_career() - Generate personalized recommendations via Gemini AI
+### pp_gemini.py - Streamlit Interface
+- Dual input modes: Structured form and natural language
+- Real-time recommendations with loading indicators
+- Confidence scores and career match percentages
+- Responsive design with clean UI
 
-**Key Classes:**
-- CareerRAG - Main orchestrator class with complete pipeline management
+### Career Knowledge Base
+- **10 Categories**: Technology, Healthcare, Finance, Education, etc.
+- **100+ Career Profiles**: Comprehensive information for each role
+- **Structured Data**: Skills, education, salary ranges, growth paths
+- **Modular Organization**: Easy to add new careers and categories
 
-### pp_gemini.py - Streamlit Web Interface
+##  Career Categories
 
-**Features:**
-- **Structured Input Mode**: Form-based input for degree, skills, experience
-- **Natural Language Mode**: Free-text description of interests and goals
-- **Real-time Processing**: Instant recommendations with loading indicators
-- **Confidence Visualization**: Match percentages and similar career suggestions
-- **Responsive Design**: Mobile-friendly interface
+1. **Technology** - Software Development, Data Science, DevOps
+2. **Healthcare** - Medical, Nursing, Healthcare Administration  
+3. **Finance** - Banking, Investment, Financial Analysis
+4. **Education** - Teaching, Educational Administration
+5. **Engineering** - Civil, Mechanical, Electrical Engineering
+6. **Creative** - Design, Marketing, Content Creation
+7. **Business** - Management, Consulting, Entrepreneurship
+8. **Legal** - Law, Compliance, Legal Services
+9. **Science** - Research, Laboratory Work, Scientific Analysis
+10. **Trades** - Skilled Trades, Technical Services
 
-### data/ Directory - Career Knowledge Base
+##  Security & Configuration
 
-**10 Career Categories with 10 careers each:**
-1. ** Business & Finance** (Accountant, Financial Analyst, Investment Banker, etc.)
-2. ** Creative & Design** (Graphic Designer, UX/UI Designer, Illustrator, etc.)
-3. ** Data Science & ML** (Data Scientist, ML Engineer, Data Analyst, etc.)
-4. ** Education & Research** (Teacher, Professor, Researcher, etc.)
-5. ** Engineering** (Mechanical Engineer, Civil Engineer, Electrical Engineer, etc.)
-6. ** Healthcare & Medical** (Doctor, Nurse, Pharmacist, etc.)
-7. ** Legal & HR** (Lawyer, HR Manager, Compliance Officer, etc.)
-8. ** Marketing & Sales** (Marketing Manager, Sales Representative, etc.)
-9. ** Operations & Logistics** (Supply Chain Manager, Operations Manager, etc.)
-10. ** Software Development** (Full Stack Developer, DevOps Engineer, etc.)
-
-**Career Profile Structure:**
-- **Career Title** and comprehensive description
-- **Required Skills** and technical competencies
-- **Education Requirements** and qualifications
-- **Salary Range** and compensation insights
-- **Career Growth Path** and advancement opportunities
-
-##  Technical Specifications
-
-### Dependencies
-`
-streamlit>=1.28.0          # Web interface
-google-generativeai>=0.3.0  # Gemini AI integration
-langchain-chroma>=0.1.0     # ChromaDB integration
-langchain-huggingface>=0.0.3 # HuggingFace embeddings
-sentence-transformers>=2.2.0 # Text embeddings
-chromadb>=0.4.0            # Vector database
-`
-
-### Vector Database Configuration
-- **Database**: ChromaDB with SQLite backend
-- **Collection**: career_knowledge_base
-- **Embedding Model**: ll-MiniLM-L6-v2 (384-dimensional vectors)
-- **Chunk Size**: 1000 characters with 200-character overlap
-- **Similarity Metric**: Cosine similarity
-
-### API Integration
-- **Provider**: Google Gemini AI
-- **Model**: gemini-pro (with fallback to gemini-flash-latest)
-- **API Key Management**: Streamlit secrets (.streamlit/secrets.toml)
-- **Step-wise Integration**: API key only accessed during LLM generation
-
-##  Performance Metrics
-
-- **Initialization Time**: ~5-10 seconds (first run downloads embeddings)
-- **Recommendation Time**: ~2-4 seconds (including API latency)
-- **Vector Search**: <50ms for similarity matching
-- **Memory Usage**: ~500MB (embeddings model + ChromaDB)
-- **Storage**: ~50MB (vector database + career data)
-
-##  Deployment Options
-
-### Streamlit Cloud (Recommended)
-1. Push repository to GitHub
-2. Go to [share.streamlit.io](https://share.streamlit.io)
-3. Connect GitHub repository
-4. Set main file: pp_gemini.py
-5. Add secret: GEMINI_API_KEY = "your_key_here"
-6. Deploy!
-
-### Local Deployment
-`ash
-# Install dependencies
-pip install -r requirements.txt
-
-# Set up secrets
-mkdir .streamlit
-echo "GEMINI_API_KEY = \"your_key_here\"" > .streamlit/secrets.toml
-
-# Run application
-streamlit run app_gemini.py
-`
-
-### Docker Deployment
-`dockerfile
-FROM python:3.9-slim
-
-WORKDIR /app
-COPY requirements.txt .
-RUN pip install -r requirements.txt
-
-COPY . .
-EXPOSE 8501
-
-CMD ["streamlit", "run", "app_gemini.py", "--server.port=8501", "--server.address=0.0.0.0"]
-`
-
-##  Security & Best Practices
-
-### API Key Management
 - API keys stored in .streamlit/secrets.toml (never committed)
-- Environment variable fallback for development
-- No sensitive data in application code
+- .gitignore excludes sensitive files and cache directories
+- Environment-based configuration for different deployment scenarios
 
-### Data Privacy
-- All processing happens locally (except Gemini API calls)
-- User inputs not stored or logged
-- Career database is static and publicly available
+##  Deployment
 
-### Git Security
-- .gitignore excludes secrets, cache, and large files
-- Never commit API keys or sensitive credentials
-- Use environment variables for production deployments
+### Deploy to Streamlit Cloud
+
+1. **Push to GitHub**
+   `ash
+   git add .
+   git commit -m "AI Career Recommendation System with RAG"
+   git push origin main
+   `
+
+2. **Deploy on Streamlit Cloud**:
+   - Go to [share.streamlit.io](https://share.streamlit.io)
+   - Connect your GitHub repository
+   - Set main file path: pp_gemini.py
+   - Add environment secrets:
+     `
+     GEMINI_API_KEY = your_api_key_here
+     `
+
+3. **Access your live application!**
 
 ##  Troubleshooting
 
 | Issue | Solution |
 |-------|----------|
+| GEMINI_API_KEY not found | Check .streamlit/secrets.toml has your API key |
 | ModuleNotFoundError | Run pip install -r requirements.txt |
-| GEMINI_API_KEY not found | Check .streamlit/secrets.toml exists |
-| ChromaDB connection error | Delete chroma_db/ folder and restart |
-| Slow first run | Downloading embeddings model (~100MB) |
-| Rate limiting | Gemini free tier: 60 requests/minute |
-| Memory errors | Reduce chunk size in ag_gemini.py |
+| Rate limiting | Free tier has limits; consider upgrading or wait |
+| Slow first run | Downloads embedding model (~100MB) on first use |
+| Database errors | Delete chroma_db/ folder and restart |
+
+##  API & Dependencies
+
+### Google Gemini AI
+- **Model**: gemini-pro
+- **Free Tier**: 60 queries/minute
+- **Setup**: [Google AI Studio](https://makersuite.google.com/app/apikey)
+
+### Key Libraries
+- **ChromaDB**: Vector database for embeddings
+- **Sentence Transformers**: ll-MiniLM-L6-v2 for embeddings
+- **LangChain**: Text processing and document chunking
+- **Streamlit**: Web application framework
+
+##  Performance Metrics
+
+- **Recommendation Time**: ~3-8 seconds (including API latency)
+- **Embedding Generation**: ~2 seconds (first run, cached after)
+- **Vector Search**: <200ms (across 100+ careers)
+- **Memory Usage**: ~500MB (with loaded models)
 
 ##  Contributing
 
-### Adding New Careers
-1. Choose appropriate category file in data/
-2. Add career profile using this format:
-   `
-   Career Name Career Path:
-   [Description]
+Want to expand the career knowledge base?
 
-   Skills: [skill1, skill2, skill3]
-   Education: [requirements]
-   Experience: [level needed]
-   Salary: [range]
-   Growth: [advancement opportunities]
-
-   ---
-   `
-3. Test with python rag_gemini.py
-4. Commit and push changes
-
-### Code Improvements
-1. Fork the repository
-2. Create feature branch: git checkout -b feature-name
-3. Make changes and test thoroughly
-4. Submit pull request with detailed description
-
-##  Future Enhancements
-
-- [ ] **Multi-language support** for global accessibility
-- [ ] **Advanced filtering** by location, salary, remote work
-- [ ] **Career transition planning** with skill gap analysis
-- [ ] **Integration with job boards** for real-time opportunities
-- [ ] **User feedback system** for continuous improvement
-- [ ] **Mobile app version** using Streamlit mobile features
+1. **Add New Careers**: Edit files in data/ directory
+2. **Follow Format**: Use consistent structure with --- separators
+3. **Test Changes**: Run python rag_gemini.py to validate
+4. **Submit PR**: Push changes and create pull request
 
 ##  License
 
-This project is open source and available under the MIT License. Feel free to use, modify, and distribute!
+This project is open source under the MIT License. Feel free to use, modify, and distribute!
 
 ##  Acknowledgments
 
-- **Google Gemini AI** for powerful language understanding
-- **ChromaDB** for efficient vector database management
-- **Sentence Transformers** for high-quality text embeddings
-- **LangChain** for RAG pipeline framework
-- **Streamlit** for intuitive web interface
-
-##  Support
-
-- **Issues**: [GitHub Issues](https://github.com/your-repo/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/your-repo/discussions)
-- **Documentation**: This README and inline code comments
+- **Google Gemini AI** for powerful language generation
+- **ChromaDB** for efficient vector storage
+- **Sentence Transformers** for high-quality embeddings
+- **Streamlit** for the amazing web app framework
 
 ---
 
 **Ready to discover your ideal career path?** 
 
-`ash
-streamlit run app_gemini.py
-`
-
-*Powered by AI, driven by your potential!* 
+Run streamlit run app_gemini.py and start your journey!

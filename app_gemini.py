@@ -1,5 +1,9 @@
 import streamlit as st
 from rag_gemini import CareerRAG
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 st.set_page_config(page_title="Career Compass - Gemini RAG", layout="wide")
 st.title("🎯 Career Compass — AI-Powered Career Recommendations")
@@ -64,12 +68,12 @@ else:
                 Education: {degree} in {branch}
                 Experience: {experience} years ({experience_type})
                 Skills: {skills}
-                Interests: {interests}
+                Interests: {interests}create
                 """
                 
                 with st.spinner("🤖 Gemini is analyzing your profile..."):
                     try:
-                        api_key = st.secrets["GEMINI_API_KEY"]
+                        api_key = os.getenv("GEMINI_API_KEY")
                         recommendation, confidence = rag_system.recommend_career(user_profile, api_key=api_key)
                         
                         col1, col2 = st.columns([3, 1])
@@ -107,7 +111,7 @@ else:
             if user_description:
                 with st.spinner("🤖 Gemini is analyzing your profile..."):
                     try:
-                        api_key = st.secrets["GEMINI_API_KEY"]
+                        api_key = os.getenv("GEMINI_API_KEY")
                         recommendation, confidence = rag_system.recommend_career(user_description, api_key=api_key)
                         
                         col1, col2 = st.columns([3, 1])

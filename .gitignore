@@ -13,6 +13,7 @@ dist/
 .venv/
 venv/
 .streamlit/secrets.toml
+chroma_db/
 
 # IDEs
 .vscode/
@@ -29,6 +30,3 @@ Thumbs.db
 
 # Jupyter
 .ipynb_checkpoints/
-
-# ChromaDB vector database
-chroma_db/
