@@ -5,7 +5,7 @@ Reads knowledge base from TXT files, implements text chunking, creates embedding
 
 import os
 from typing import List, Tuple
-import google.generativeai as genai
+from google import genai
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_chroma import Chroma
 from langchain_huggingface import HuggingFaceEmbeddings
@@ -223,12 +223,9 @@ class CareerRAG:
 
         # Step 3: Initialize LLM with API key (step-wise integration)
         print("🔑 Step 3: Initializing LLM for final generation...")
-        genai.configure(api_key=api_key)
-        model_name = 'models/gemini-flash-latest'
-        try:
-            model = genai.GenerativeModel(model_name)
-        except Exception as e:
-            raise RuntimeError(f"Failed to initialize Gemini model: {e}")
+        client = genai.Client(api_key=api_key)
+        model_name = 'gemini-2.0-flash'
+        # Model is specified in generate_content call
 
         # Step 4: LLM gets context + prompt (what user needs to fetch)
         print("🤖 Step 4: Generating personalized recommendation...")
@@ -251,8 +248,8 @@ TASK: Based on the user's query and the retrieved career information above, prov
 Be specific, encouraging, and provide actionable advice. Focus on careers that align with their stated interests and skills."""
 
         try:
-            response = model.generate_content(prompt)
-            recommendation = getattr(response, 'text', None) or str(response)
+            response = client.models.generate_content(model=model_name, contents=prompt)
+            recommendation = response.text
 
             # Step 5: Calculate confidence based on retrieval scores
             confidence = sum(score for _, score in retrieved_docs) / len(retrieved_docs) if retrieved_docs else 0.5
