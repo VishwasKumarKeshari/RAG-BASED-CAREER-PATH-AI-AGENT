@@ -6,10 +6,13 @@ Reads knowledge base from TXT files, implements text chunking, creates embedding
 import os
 from typing import List, Tuple
 from google import genai
+from dotenv import load_dotenv
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_chroma import Chroma
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_core.documents import Document
+
+load_dotenv()
 
 
 class CareerRAG:
