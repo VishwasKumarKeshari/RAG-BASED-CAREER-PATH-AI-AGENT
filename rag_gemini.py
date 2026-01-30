@@ -5,7 +5,7 @@ Reads knowledge base from TXT files, implements text chunking, creates embedding
 
 import os
 from typing import List, Tuple
-from google import genai
+from groq import Groq
 from dotenv import load_dotenv
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_chroma import Chroma
@@ -220,14 +220,14 @@ class CareerRAG:
         print(f"📄 Retrieved {len(retrieved_docs)} relevant career paths from: {set(sources)}")
 
         # Step 2: Get API key for LLM (only needed at this final step)
-        api_key = api_key or os.getenv("GEMINI_API_KEY")
+        api_key = api_key or os.getenv("GROQ_API_KEY")
         if not api_key:
-            raise ValueError("API key required for LLM generation. Pass api_key parameter or set GEMINI_API_KEY environment variable.")
+            raise ValueError("API key required for LLM generation. Pass api_key parameter or set GROQ_API_KEY environment variable.")
 
         # Step 3: Initialize LLM with API key (step-wise integration)
         print("🔑 Step 3: Initializing LLM for final generation...")
-        client = genai.Client(api_key=api_key)
-        model_name = 'gemini-2.0-flash'
+        client = Groq(api_key=api_key)
+        model_name = 'llama3-8b-8192'
         # Model is specified in generate_content call
 
         # Step 4: LLM gets context + prompt (what user needs to fetch)
@@ -251,8 +251,11 @@ TASK: Based on the user's query and the retrieved career information above, prov
 Be specific, encouraging, and provide actionable advice. Focus on careers that align with their stated interests and skills."""
 
         try:
-            response = client.models.generate_content(model=model_name, contents=prompt)
-            recommendation = response.text
+            response = client.chat.completions.create(
+                model=model_name,
+                messages=[{"role": "user", "content": prompt}]
+            )
+            recommendation = response.choices[0].message.content
 
             # Step 5: Calculate confidence based on retrieval scores
             confidence = sum(score for _, score in retrieved_docs) / len(retrieved_docs) if retrieved_docs else 0.5

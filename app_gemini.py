@@ -5,9 +5,9 @@ import os
 
 load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), '.env'))
 
-st.set_page_config(page_title="Career Compass - Gemini RAG", layout="wide")
+st.set_page_config(page_title="Career Compass - Groq RAG", layout="wide")
 st.title("🎯 Career Compass — AI-Powered Career Recommendations")
-st.markdown("*Powered by Google Gemini AI and RAG Technology*")
+st.markdown("*Powered by Groq AI and RAG Technology*")
 
 # Initialize session state
 if 'rag_system' not in st.session_state:
@@ -71,9 +71,9 @@ else:
                 Interests: {interests}create
                 """
                 
-                with st.spinner("🤖 Gemini is analyzing your profile..."):
+                with st.spinner("🤖 Groq is analyzing your profile..."):
                     try:
-                        api_key = os.getenv("GEMINI_API_KEY")
+                        api_key = os.getenv("GROQ_API_KEY")
                         recommendation, confidence = rag_system.recommend_career(user_profile, api_key=api_key)
                         
                         col1, col2 = st.columns([3, 1])
@@ -109,9 +109,9 @@ else:
         
         if st.button("✨ Find Your Career Path", use_container_width=True):
             if user_description:
-                with st.spinner("🤖 Gemini is analyzing your profile..."):
+                with st.spinner("🤖 Groq is analyzing your profile..."):
                     try:
-                        api_key = os.getenv("GEMINI_API_KEY")
+                        api_key = os.getenv("GROQ_API_KEY")
                         recommendation, confidence = rag_system.recommend_career(user_description, api_key=api_key)
                         
                         col1, col2 = st.columns([3, 1])
@@ -139,12 +139,12 @@ else:
 st.markdown("---")
 st.markdown("""
 ### ℹ️ About This RAG System
-This application uses **Retrieval-Augmented Generation (RAG)** with Google Gemini AI:
+This application uses **Retrieval-Augmented Generation (RAG)** with Groq AI:
 
 🔍 **Step 1 - User Query → Retriever**: Your input goes to the retriever  
 🗄️ **Step 2 - Retriever → Vector Store**: Searches 100 career paths for matches  
-🤖 **Step 3 - Context + Prompt → LLM**: Gemini AI gets relevant careers + your query  
+🤖 **Step 3 - Context + Prompt → LLM**: Groq AI gets relevant careers + your query  
 ✨ **Step 4 - LLM → Output**: Generates personalized career recommendations  
 
-**Technology Stack**: Gemini AI + Sentence Transformers + FAISS Vector Store + 100 Career Paths
+**Technology Stack**: Groq AI + Sentence Transformers + FAISS Vector Store + 100 Career Paths
 """)
