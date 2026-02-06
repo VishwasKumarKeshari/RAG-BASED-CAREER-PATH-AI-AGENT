@@ -1,5 +1,5 @@
 import streamlit as st
-from rag_gemini import CareerRAG
+from rag import CareerRAG
 from dotenv import load_dotenv
 import os
 
