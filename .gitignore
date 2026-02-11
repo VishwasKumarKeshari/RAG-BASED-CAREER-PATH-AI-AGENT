@@ -12,7 +12,6 @@ dist/
 .env
 .venv/
 venv/
-.streamlit/secrets.toml
 chroma_db/
 
 # IDEs
@@ -30,3 +29,4 @@ Thumbs.db
 
 # Jupyter
 .ipynb_checkpoints/
+PROJECT_PPT_GUIDE.md
