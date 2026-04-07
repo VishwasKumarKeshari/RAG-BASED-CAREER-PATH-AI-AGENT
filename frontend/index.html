@@ -68,6 +68,15 @@
 
     <section class="card reveal">
       <div class="panel-header">
+        <h2>YouTube Playlists For You</h2>
+      </div>
+      <div id="ytVideos" class="youtube-videos empty">
+        Playlist suggestions based on your recommendation will appear here.
+      </div>
+    </section>
+
+    <section class="card reveal">
+      <div class="panel-header">
         <h2>Next 6 Months Plan</h2>
       </div>
       <div id="nextPlan" class="next-plan empty">
@@ -82,6 +91,24 @@
     </section>
   </main>
 
-  <script src="/frontend/script.js?v=9"></script>
+  <button id="chatToggleBtn" class="chat-fab" type="button" aria-label="Open AI chat" aria-expanded="false">
+    <span class="chat-fab-icon">💬</span>
+  </button>
+
+  <section id="chatWidget" class="chat-widget" aria-label="AI Chat Assistant" hidden>
+    <header class="chat-header">
+      <h3>Ask AI</h3>
+      <span class="chat-status">StudyBot</span>
+    </header>
+    <div id="chatMessages" class="chat-messages">
+      <div class="chat-bubble bot">Hi, ask me anything about careers, skills, and next steps.</div>
+    </div>
+    <form id="chatForm" class="chat-input-row">
+      <input id="chatInput" type="text" placeholder="Type your question..." maxlength="2000" autocomplete="off">
+      <button id="chatSendBtn" class="btn btn-primary" type="submit">Send</button>
+    </form>
+  </section>
+
+  <script src="/frontend/script.js?v=11"></script>
 </body>
 </html>

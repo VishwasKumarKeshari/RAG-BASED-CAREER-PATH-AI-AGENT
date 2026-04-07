@@ -5,10 +5,18 @@ const downloadTxtBtn = document.getElementById("downloadTxtBtn");
 const resultBox = document.getElementById("result");
 const confidenceChip = document.getElementById("confidenceChip");
 const learningResourcesBox = document.getElementById("learningResources");
+const ytVideosBox = document.getElementById("ytVideos");
 const nextPlanBox = document.getElementById("nextPlan");
+const chatToggleBtn = document.getElementById("chatToggleBtn");
+const chatWidget = document.getElementById("chatWidget");
+const chatMessages = document.getElementById("chatMessages");
+const chatForm = document.getElementById("chatForm");
+const chatInput = document.getElementById("chatInput");
+const chatSendBtn = document.getElementById("chatSendBtn");
 
 let typingTimer = null;
 let latestResponseText = "";
+let chatOpen = false;
 
 function setLoading(message) {
   if (!resultBox) {
@@ -21,6 +29,7 @@ function setLoading(message) {
   resultBox.classList.remove("typing");
   resultBox.textContent = message;
   resetLearningResources();
+  resetYoutubeVideos();
   resetNextPlan();
 }
 
@@ -34,6 +43,7 @@ function setResult(text) {
   resultBox.classList.remove("empty");
   typeText(formatRecommendationForDisplay(text));
   renderLearningResources(text);
+  void renderYoutubePlaylists(text);
   renderNextPlan(text);
 }
 
@@ -48,6 +58,7 @@ function setError(text) {
   resultBox.classList.remove("typing");
   resultBox.textContent = `Error: ${text}`;
   resetLearningResources();
+  resetYoutubeVideos();
   resetNextPlan();
 }
 
@@ -187,6 +198,14 @@ function resetNextPlan() {
   nextPlanBox.textContent = "6-month action plan will appear here.";
 }
 
+function resetYoutubeVideos() {
+  if (!ytVideosBox) {
+    return;
+  }
+  ytVideosBox.classList.add("empty");
+  ytVideosBox.textContent = "Playlist suggestions based on your recommendation will appear here.";
+}
+
 function isPlanStartLine(line) {
   const lower = line.toLowerCase();
   return (
@@ -281,17 +300,6 @@ function stripSixMonthPlanLines(text) {
   return cleaned.replace(/\n{3,}/g, "\n\n").trim();
 }
 
-function classifyPlatform(url) {
-  const lower = url.toLowerCase();
-  if (lower.includes("youtube.com") || lower.includes("youtu.be")) {
-    return "YouTube";
-  }
-  if (lower.includes("coursera.org")) {
-    return "Coursera";
-  }
-  return "Link";
-}
-
 function extractLinks(text) {
   if (typeof text !== "string" || !text.trim()) {
     return [];
@@ -334,50 +342,6 @@ function extractLinks(text) {
   return links;
 }
 
-function extractLearningResourceItems(text) {
-  if (typeof text !== "string" || !text.trim()) {
-    return [];
-  }
-
-  const lines = text.split("\n");
-  const items = [];
-
-  const isResourceHeader = (line) => {
-    const cleaned = line.trim().toLowerCase();
-    return (
-      cleaned.includes("learning resources") ||
-      cleaned.includes("relevant skills") ||
-      cleaned.includes("following courses") ||
-      cleaned.includes("recommended courses") ||
-      cleaned.includes("youtube channels") ||
-      cleaned.includes("courses:")
-    );
-  };
-
-  for (let i = 0; i < lines.length; i += 1) {
-    if (!isResourceHeader(lines[i])) {
-      continue;
-    }
-
-    for (let j = i + 1; j < lines.length; j += 1) {
-      const current = lines[j].trim();
-      if (!current) {
-        continue;
-      }
-      if (looksLikeNewSection(current) || isPlanStartLine(current)) {
-        break;
-      }
-
-      const cleaned = current.replace(/^[-*+]\s+/, "").replace(/^\d+\.\s+/, "").trim();
-      if (cleaned) {
-        items.push(cleaned);
-      }
-    }
-  }
-
-  return items;
-}
-
 function isSafeHttpUrl(url) {
   try {
     const parsed = new URL(url);
@@ -393,7 +357,6 @@ function renderLearningResources(text) {
   }
 
   const allLinks = extractLinks(text);
-  const plainItems = extractLearningResourceItems(text);
   const preferred = allLinks.filter((item) => {
     const lower = item.url.toLowerCase();
     return (
@@ -403,7 +366,7 @@ function renderLearningResources(text) {
     );
   });
 
-  if (!preferred.length && !plainItems.length) {
+  if (!preferred.length) {
     learningResourcesBox.classList.add("empty");
     learningResourcesBox.textContent = "No YouTube or Coursera links found in this recommendation.";
     return;
@@ -433,10 +396,6 @@ function renderLearningResources(text) {
     const row = document.createElement("li");
     row.className = "resource-item";
 
-    const platform = document.createElement("span");
-    platform.className = "resource-platform";
-    platform.textContent = classifyPlatform(item.url);
-
     const link = document.createElement("a");
     link.className = "resource-link";
     link.href = item.url;
@@ -444,28 +403,9 @@ function renderLearningResources(text) {
     link.rel = "noopener noreferrer";
     link.textContent = item.label === item.url ? item.url : item.label;
 
-    row.appendChild(platform);
     row.appendChild(link);
     list.appendChild(row);
   });
-
-  if (!list.children.length) {
-    plainItems.forEach((value) => {
-      const row = document.createElement("li");
-      row.className = "resource-item";
-
-      const platform = document.createElement("span");
-      platform.className = "resource-platform";
-      platform.textContent = "Resource";
-
-      const label = document.createElement("span");
-      label.textContent = value;
-
-      row.appendChild(platform);
-      row.appendChild(label);
-      list.appendChild(row);
-    });
-  }
 
   if (!list.children.length) {
     learningResourcesBox.classList.add("empty");
@@ -474,6 +414,91 @@ function renderLearningResources(text) {
   }
 
   learningResourcesBox.appendChild(list);
+}
+
+async function renderYoutubePlaylists(text) {
+  if (!ytVideosBox) {
+    return;
+  }
+
+  if (typeof text !== "string" || !text.trim()) {
+    ytVideosBox.classList.add("empty");
+    ytVideosBox.textContent = "No playlist suggestions found for this recommendation.";
+    return;
+  }
+
+  ytVideosBox.classList.add("empty");
+  ytVideosBox.textContent = "Finding matching YouTube playlists...";
+
+  try {
+    const playlists = await callApi("/youtube/playlists", {
+      method: "POST",
+      body: JSON.stringify({
+        recommendation: text,
+        max_results: 6,
+      }),
+    });
+
+    if (!Array.isArray(playlists) || !playlists.length) {
+      ytVideosBox.classList.add("empty");
+      ytVideosBox.textContent = "No YouTube playlists found for this recommendation.";
+      return;
+    }
+
+    ytVideosBox.classList.remove("empty");
+    ytVideosBox.textContent = "";
+
+    const list = document.createElement("ol");
+    list.className = "playlist-list";
+
+    playlists.forEach((item) => {
+      if (!item?.url || !isSafeHttpUrl(item.url)) {
+        return;
+      }
+
+      const row = document.createElement("li");
+      row.className = "playlist-item";
+
+      if (item.thumbnail && isSafeHttpUrl(item.thumbnail)) {
+        const img = document.createElement("img");
+        img.className = "playlist-thumb";
+        img.src = item.thumbnail;
+        img.alt = item.title ? `${item.title} thumbnail` : "Playlist thumbnail";
+        img.loading = "lazy";
+        row.appendChild(img);
+      }
+
+      const meta = document.createElement("div");
+      meta.className = "playlist-meta";
+
+      const link = document.createElement("a");
+      link.className = "resource-link";
+      link.href = item.url;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.textContent = item.title || "YouTube Playlist";
+
+      const reason = document.createElement("p");
+      reason.className = "playlist-reason";
+      reason.textContent = item.channel ? `Channel: ${item.channel}` : "Recommended based on your career recommendation.";
+
+      meta.appendChild(link);
+      meta.appendChild(reason);
+      row.appendChild(meta);
+      list.appendChild(row);
+    });
+
+    if (!list.children.length) {
+      ytVideosBox.classList.add("empty");
+      ytVideosBox.textContent = "No valid YouTube playlists found.";
+      return;
+    }
+
+    ytVideosBox.appendChild(list);
+  } catch (error) {
+    ytVideosBox.classList.add("empty");
+    ytVideosBox.textContent = `Could not load YouTube playlists: ${error.message}`;
+  }
 }
 
 function renderNextPlan(text) {
@@ -519,6 +544,82 @@ function renderNextPlan(text) {
 function setStatus(ready, errText = "") {
   void ready;
   void errText;
+}
+
+function toggleChatWidget() {
+  chatOpen = !chatOpen;
+  if (!chatWidget || !chatToggleBtn) {
+    return;
+  }
+  chatWidget.hidden = !chatOpen;
+  chatToggleBtn.setAttribute("aria-expanded", String(chatOpen));
+  chatToggleBtn.setAttribute("aria-label", chatOpen ? "Close AI chat" : "Open AI chat");
+  if (chatOpen) {
+    chatInput?.focus();
+  }
+}
+
+function appendChatMessage(role, text, options = {}) {
+  if (!chatMessages) {
+    return null;
+  }
+  const bubble = document.createElement("div");
+  bubble.className = `chat-bubble ${role}`;
+  if (options.loading) {
+    bubble.classList.add("loading");
+  }
+  bubble.textContent = text;
+  chatMessages.appendChild(bubble);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+  return bubble;
+}
+
+function setChatLoading(isLoading) {
+  if (!chatInput || !chatSendBtn) {
+    return;
+  }
+  chatInput.disabled = isLoading;
+  chatSendBtn.disabled = isLoading;
+  chatSendBtn.textContent = isLoading ? "..." : "Send";
+}
+
+async function submitChat(event) {
+  if (event) {
+    event.preventDefault();
+  }
+  if (!chatInput) {
+    return;
+  }
+  const question = chatInput.value.trim();
+  if (!question) {
+    return;
+  }
+
+  appendChatMessage("user", question);
+  chatInput.value = "";
+  setChatLoading(true);
+  const loadingBubble = appendChatMessage("bot", "Thinking...", { loading: true });
+
+  try {
+    const data = await callApi("/chat", {
+      method: "POST",
+      body: JSON.stringify({ question }),
+    });
+
+    if (loadingBubble?.remove) {
+      loadingBubble.remove();
+    }
+
+    appendChatMessage("bot", data?.answer || "No answer generated.");
+  } catch (error) {
+    if (loadingBubble?.remove) {
+      loadingBubble.remove();
+    }
+    appendChatMessage("bot", `Error: ${error.message}`);
+  } finally {
+    setChatLoading(false);
+    chatInput?.focus();
+  }
 }
 
 function updateDownloadAvailability() {
@@ -567,16 +668,8 @@ function getLearningResourcesForExport(text) {
   });
 
   const lines = preferredLinks.map((item) => {
-    const platform = classifyPlatform(item.url);
     const label = item.label === item.url ? item.url : item.label;
-    return `${platform}: ${label} - ${item.url}`;
-  });
-
-  const plainItems = extractLearningResourceItems(text);
-  plainItems.forEach((item) => {
-    if (!lines.some((line) => line.toLowerCase().includes(item.toLowerCase()))) {
-      lines.push(`Resource: ${item}`);
-    }
+    return `${label} - ${item.url}`;
   });
 
   return lines;
@@ -705,7 +798,10 @@ async function submitNatural(event) {
 
 naturalForm?.addEventListener("submit", submitNatural);
 downloadTxtBtn?.addEventListener("click", downloadTxtReport);
+chatToggleBtn?.addEventListener("click", toggleChatWidget);
+chatForm?.addEventListener("submit", submitChat);
 checkStatus();
 resetLearningResources();
+resetYoutubeVideos();
 resetNextPlan();
 updateDownloadAvailability();

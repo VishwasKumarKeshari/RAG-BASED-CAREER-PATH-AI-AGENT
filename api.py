@@ -1,6 +1,9 @@
 import os
+import json
 from io import BytesIO
 from typing import List, Optional
+from urllib.parse import urlencode
+from urllib.request import urlopen
 
 from dotenv import load_dotenv
 from fastapi import FastAPI, File, HTTPException, UploadFile
@@ -11,10 +14,12 @@ from docx import Document as DocxDocument
 from PyPDF2 import PdfReader
 
 from rag import CareerRAG
+from rag2 import router as chat_router
 
 load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), ".env"))
 
 app = FastAPI(title="Career Compass RAG API", version="1.0.0")
+app.include_router(chat_router)
 BASE_DIR = os.path.dirname(__file__)
 FRONTEND_DIR = os.path.join(BASE_DIR, "frontend")
 
@@ -47,6 +52,19 @@ class RecommendResponse(BaseModel):
 
 class RecommendRequest(BaseModel):
     query: str = Field(..., min_length=5)
+
+
+class YouTubePlaylist(BaseModel):
+    title: str
+    url: str
+    channel: Optional[str] = None
+    description: Optional[str] = None
+    thumbnail: Optional[str] = None
+
+
+class PlaylistSuggestionRequest(BaseModel):
+    recommendation: str = Field(..., min_length=5)
+    max_results: int = Field(default=6, ge=1, le=20)
 
 
 def _extract_resume_text(file: UploadFile) -> str:
@@ -135,6 +153,97 @@ def _similar_docs(rag: CareerRAG, query: str, top_k: int = 3) -> List[SimilarDoc
             )
         )
     return result
+
+
+def _build_youtube_queries_from_recommendation(text: str) -> List[str]:
+    lower = text.lower()
+    query_map = [
+        (["python"], "python programming full course playlist"),
+        (["data structures", "algorithms", "dsa"], "data structures and algorithms playlist"),
+        (["machine learning", "ml"], "machine learning roadmap playlist"),
+        (["deep learning", "neural network"], "deep learning playlist"),
+        (["data science", "data scientist"], "data science complete playlist"),
+        (["sql", "database"], "sql and database playlist"),
+        (["power bi", "data analyst", "business analyst"], "power bi data analytics playlist"),
+        (["frontend", "html", "css", "javascript"], "frontend web development playlist"),
+        (["backend", "api", "fastapi"], "backend development api playlist"),
+        (["cloud", "devops", "aws", "docker", "kubernetes"], "cloud devops aws playlist"),
+        (["digital marketing", "seo", "social media"], "digital marketing playlist"),
+        (["ui", "ux", "figma", "product design"], "ui ux design playlist"),
+        (["finance", "accounting", "investment"], "finance and accounting playlist"),
+        (["communication", "leadership", "management"], "communication and leadership playlist"),
+    ]
+
+    queries: List[str] = []
+    for keywords, query in query_map:
+        if any(keyword in lower for keyword in keywords):
+            queries.append(query)
+
+    if not queries:
+        queries = [
+            "career roadmap skills playlist",
+            "job ready portfolio projects playlist",
+        ]
+
+    return queries[:5]
+
+
+def _fetch_youtube_playlists(queries: List[str], max_results: int) -> List[YouTubePlaylist]:
+    api_key = os.getenv("YOUTUBE_API_KEY")
+    if not api_key:
+        raise HTTPException(
+            status_code=503,
+            detail="YouTube API is not configured. Add YOUTUBE_API_KEY in .env",
+        )
+
+    collected: List[YouTubePlaylist] = []
+    seen_ids = set()
+    per_query = max(3, min(10, max_results))
+
+    for query in queries:
+        params = urlencode(
+            {
+                "part": "snippet",
+                "type": "playlist",
+                "maxResults": per_query,
+                "q": query,
+                "key": api_key,
+            }
+        )
+        url = f"https://www.googleapis.com/youtube/v3/search?{params}"
+
+        try:
+            with urlopen(url, timeout=12) as resp:
+                payload = json.loads(resp.read().decode("utf-8"))
+        except HTTPException:
+            raise
+        except Exception as exc:
+            raise HTTPException(status_code=502, detail=f"YouTube API request failed: {exc}")
+
+        items = payload.get("items", [])
+        for item in items:
+            playlist_id = item.get("id", {}).get("playlistId")
+            snippet = item.get("snippet", {})
+            if not playlist_id or playlist_id in seen_ids:
+                continue
+
+            seen_ids.add(playlist_id)
+            collected.append(
+                YouTubePlaylist(
+                    title=snippet.get("title", "Untitled Playlist"),
+                    url=f"https://www.youtube.com/playlist?list={playlist_id}",
+                    channel=snippet.get("channelTitle"),
+                    description=snippet.get("description", ""),
+                    thumbnail=(
+                        (snippet.get("thumbnails", {}).get("medium") or {}).get("url")
+                        or (snippet.get("thumbnails", {}).get("default") or {}).get("url")
+                    ),
+                )
+            )
+            if len(collected) >= max_results:
+                return collected
+
+    return collected
 
 
 @app.on_event("startup")
@@ -247,6 +356,12 @@ def recommend_resume(file: UploadFile = File(...)):
     )
 
 
+@app.post("/youtube/playlists", response_model=List[YouTubePlaylist])
+def youtube_playlists(payload: PlaylistSuggestionRequest):
+    queries = _build_youtube_queries_from_recommendation(payload.recommendation)
+    return _fetch_youtube_playlists(queries, max_results=payload.max_results)
+
+
 if os.path.isdir(FRONTEND_DIR):
     app.mount("/frontend", StaticFiles(directory=FRONTEND_DIR), name="frontend")
 
@@ -257,3 +372,6 @@ def home():
     if not os.path.isfile(index_path):
         raise HTTPException(status_code=404, detail="Frontend not found")
     return FileResponse(index_path)
+
+
+#python -m uvicorn api:app --host 127.0.0.1 --port 8000

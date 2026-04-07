@@ -245,7 +245,7 @@ TASK: Based on the user's query and the retrieved career information above, prov
 1. **Top Career Recommendations**: Suggest 2-3 most suitable careers with specific reasons why they match
 2. **Skills Match Analysis**: What skills they already have vs. what they need to develop
 3. **Career Path Details**: Salary ranges, experience levels, growth opportunities
-4. **Give coursera and youtube links for learning relevant skills.
+4. **Learning Resources**: Provide only Coursera and YouTube resources in this exact format, one per line: `- [Resource Title](https://...)`. Do not include any extra explanation text for resources.
 5. **Next Steps**: give 6 months strategy to transition into the recommended career(s)
 
 Be specific, encouraging, and provide actionable advice. Focus on careers that align with their stated interests and skills."""
